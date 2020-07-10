@@ -19,11 +19,11 @@ class Party {
     /** @var Session */
     private $leader;
 
-    /** @var null|int */
-    private $slots = null;
-
     /** @var bool */
     private $locked = false;
+
+    /** @var null|int */
+    private $slots = null;
 
     public function __construct(string $id) {
         $this->id = $id;
@@ -31,6 +31,14 @@ class Party {
 
     public function getId(): string {
         return $this->id;
+    }
+
+    public function setLocked(bool $locked): void {
+        $this->locked = $locked;
+    }
+
+    public function setSlots(?int $slots): void {
+        $this->slots = $slots;
     }
 
 }
