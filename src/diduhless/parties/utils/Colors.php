@@ -31,6 +31,7 @@ class Colors {
         $message = str_replace("{UNDERLINE}", TextFormat::UNDERLINE, $message);
         $message = str_replace("{ITALIC}", TextFormat::ITALIC, $message);
         $message = str_replace("{RESET}", TextFormat::RESET, $message);
+
         return $message;
     }
 
