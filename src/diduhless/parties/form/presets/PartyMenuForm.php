@@ -1,7 +1,7 @@
 <?php
 
 
-namespace diduhless\parties\form\party;
+namespace diduhless\parties\form\presets;
 
 
 use diduhless\parties\form\PartySimpleForm;

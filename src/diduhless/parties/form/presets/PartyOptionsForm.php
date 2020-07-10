@@ -1,7 +1,7 @@
 <?php
 
 
-namespace diduhless\parties\form\party;
+namespace diduhless\parties\form\presets;
 
 
 use diduhless\parties\event\PartyLockEvent;
@@ -10,7 +10,7 @@ use diduhless\parties\event\PartyUpdateSlotsEvent;
 use diduhless\parties\form\PartyCustomForm;
 use pocketmine\Player;
 
-class PartyOptionsMenu extends PartyCustomForm {
+class PartyOptionsForm extends PartyCustomForm {
 
     public function onCreation(): void {
         $this->setTitle("Party Options");
