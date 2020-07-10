@@ -1,16 +1,17 @@
 <?php
 
 
-namespace diduhless\parties\form;
+namespace diduhless\parties\form\party;
 
 
+use diduhless\parties\form\PartySimpleForm;
 use pocketmine\Player;
 
 class PartyMenuForm extends PartySimpleForm {
 
     public function onCreation(): void {
         $this->setTitle("Party Menu");
-        $this->setContent("You do not have a party! ");
+        $this->setContent("You do not have a party! Create a party or accept an invitation to join a party.");
         $this->addButton("Create a party");
         $this->addButton("Invitations [" . count($this->getSession()->getInvitations()) . "]");
     }
