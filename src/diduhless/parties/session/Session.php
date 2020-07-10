@@ -34,7 +34,17 @@ class Session {
         return $this->party;
     }
 
+    /**
+     * Removes all the invitations that have passed more than the provided invitation length
+     *
+     * @return Invitation[]
+     */
     public function getInvitations(): array {
+        foreach($this->invitations as $time => $invitation) {
+            if(microtime(true) - $time >= Invitation::INVITATION_LENGTH) {
+                $this->removeInvitation($invitation);
+            }
+        }
         return $this->invitations;
     }
 
@@ -47,8 +57,15 @@ class Session {
     }
 
     public function addInvitation(Invitation $invitation): void {
-        $this->invitations[] = $invitation;
+        $this->invitations[microtime(true)] = $invitation;
     }
+
+    public function removeInvitation(Invitation $invitation): void {
+        if(!in_array($invitation, $this->invitations)) {
+            unset($this->invitations[array_search($invitation, $this->invitations)]);
+        }
+    }
+
 
     public function message(string $message): void {
         $this->getPlayer()->sendMessage(Colors::translate($message));
