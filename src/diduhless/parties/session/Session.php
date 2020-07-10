@@ -8,6 +8,7 @@ namespace diduhless\parties\session;
 
 use diduhless\parties\party\Invitation;
 use diduhless\parties\party\Party;
+use diduhless\parties\utils\Colors;
 use pocketmine\Player;
 
 class Session {
@@ -37,12 +38,20 @@ class Session {
         return $this->invitations;
     }
 
+    public function hasParty(): bool {
+        return $this->party !== null;
+    }
+
     public function setParty(?Party $party): void {
         $this->party = $party;
     }
 
     public function addInvitation(Invitation $invitation): void {
         $this->invitations[] = $invitation;
+    }
+
+    public function message(string $message): void {
+        $this->getPlayer()->sendMessage(Colors::translate($message));
     }
 
 }
