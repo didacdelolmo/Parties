@@ -19,7 +19,6 @@ class SessionListener implements Listener {
 
     public function onQuit(PlayerQuitEvent $event): void {
         SessionFactory::removeSession($event->getPlayer());
-        // Remove him f
     }
 
 }
