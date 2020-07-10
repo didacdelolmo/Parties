@@ -10,6 +10,8 @@ use diduhless\parties\session\Session;
 
 class Invitation {
 
+    public const INVITATION_LENGTH = 60;
+
     /** @var Session */
     private $sender;
 
@@ -23,6 +25,14 @@ class Invitation {
         $this->sender = $sender;
         $this->target = $target;
         $this->partyId = $partyId;
+    }
+
+    public function getSender(): Session {
+        return $this->sender;
+    }
+
+    public function attemptToAccept(): void {
+        $this->target->removeInvitation($this);
     }
 
 }
