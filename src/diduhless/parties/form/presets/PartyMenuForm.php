@@ -18,13 +18,14 @@ class PartyMenuForm extends PartySimpleForm {
 
     public function setCallback(Player $player, ?int $result): void {
         if($result === null) return;
+        $session = $this->getSession();
 
         switch($result) {
             case 0:
                 // Send the create party form
                 break;
             case 1:
-                // Send the invitations form
+                $session->getPlayer()->sendForm(new InvitationsForm($session));
                 break;
         }
     }
