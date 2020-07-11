@@ -21,33 +21,28 @@ class PartyOptionsForm extends PartyCustomForm {
 
     public function setCallback(Player $player, ?array $options): void {
         $session = $this->getSession();
-        if($options === null or !$session->hasParty()) return;
+        if($options === null or !$session->hasParty() or !isset($options[1]) or !isset($options[2])) return;
         $party = $session->getParty();
 
-        if(isset($options[0])) {
-            if($options[0]) {
-                $event = new PartyLockEvent($party);
-                $event->call();
-                if(!$event->isCancelled()) {
-                    $party->setLocked(true);
-                    // Send a message
-                }
-            } else {
-                $event = new PartyUnlockEvent($party);
-                $event->call();
-                if(!$event->isCancelled()) {
-                    $party->setLocked(false);
-                    // Send a message
-                }
-            }
-
-        } elseif(isset($options[1])) {
-            $event = new PartyUpdateSlotsEvent($party, $options[1]);
+        if($options[1]) {
+            $event = new PartyLockEvent($party, $session);
             $event->call();
             if(!$event->isCancelled()) {
-                $party->setSlots($options[1] === 1 ? null : $options[1]);
-                // Send a message
+                $party->setLocked(true);
+            }
+        } else {
+            $event = new PartyUnlockEvent($party, $session);
+            $event->call();
+            if(!$event->isCancelled()) {
+                $party->setLocked(false);
             }
         }
+
+        $event = new PartyUpdateSlotsEvent($party, $session, $options[2]);
+        $event->call();
+        if(!$event->isCancelled()) {
+            $party->setSlots($options[2] === 1 ? null : $options[2]);
+        }
     }
+
 }
