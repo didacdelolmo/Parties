@@ -4,7 +4,10 @@
 namespace diduhless\parties\form\presets;
 
 
+use diduhless\parties\event\PartyCreateEvent;
 use diduhless\parties\form\PartySimpleForm;
+use diduhless\parties\party\Party;
+use diduhless\parties\party\PartyFactory;
 use pocketmine\Player;
 
 class PartyMenuForm extends PartySimpleForm {
@@ -18,15 +21,30 @@ class PartyMenuForm extends PartySimpleForm {
 
     public function setCallback(Player $player, ?int $result): void {
         if($result === null) return;
-        $session = $this->getSession();
-
         switch($result) {
             case 0:
-                // Send the create party form
+                $this->onPartyCreate();
                 break;
             case 1:
-                $session->getPlayer()->sendForm(new InvitationsForm($session));
+                $this->onOpenInvitations();
                 break;
         }
+    }
+
+    private function onPartyCreate(): void {
+        $session = $this->getSession();
+        $party = new Party(uniqid(), [$session], $session);
+        $event = new PartyCreateEvent($party, $session);
+
+        $event->call();
+        if(!$event->isCancelled()) {
+            PartyFactory::addParty($party);
+            $session->setParty($party);
+        }
+    }
+
+    private function onOpenInvitations(): void {
+        $session = $this->getSession();
+        $session->getPlayer()->sendForm(new InvitationsForm($session));
     }
 }
