@@ -49,6 +49,14 @@ class Party {
         return $this->leader;
     }
 
+    public function getLeaderName(): string {
+        return $this->leader->getPlayer()->getName();
+    }
+
+    public function isLocked(): bool {
+        return $this->locked;
+    }
+
     public function setLocked(bool $locked): void {
         $this->locked = $locked;
     }
