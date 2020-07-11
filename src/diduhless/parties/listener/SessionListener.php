@@ -13,12 +13,23 @@ use pocketmine\event\player\PlayerQuitEvent;
 
 class SessionListener implements Listener {
 
+    /**
+     * @param PlayerLoginEvent $event
+     * @priority HIGHEST
+     * @ignoreCancelled
+     */
     public function onLogin(PlayerLoginEvent $event): void {
         SessionFactory::createSession($event->getPlayer());
     }
 
+    /**
+     * @param PlayerQuitEvent $event
+     * @priority LOWEST
+     */
     public function onQuit(PlayerQuitEvent $event): void {
-        SessionFactory::removeSession($event->getPlayer());
+        if(SessionFactory::hasSession($player = $event->getPlayer())) {
+            SessionFactory::removeSession($player);
+        }
     }
 
 }
