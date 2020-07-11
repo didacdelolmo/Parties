@@ -16,6 +16,7 @@ class PartyMenuForm extends PartySimpleForm {
         $this->setTitle("Party Menu");
         $this->setContent("You do not have a party! Create a party or accept an invitation to join a party.");
         $this->addButton("Create a party");
+        $this->addButton("Join a public party");
         $this->addButton("Invitations [" . count($this->getSession()->getInvitations()) . "]");
     }
 
@@ -26,6 +27,9 @@ class PartyMenuForm extends PartySimpleForm {
                 $this->onPartyCreate();
                 break;
             case 1:
+                $this->onOpenPublicParties();
+                break;
+            case 2:
                 $this->onOpenInvitations();
                 break;
         }
@@ -41,6 +45,11 @@ class PartyMenuForm extends PartySimpleForm {
             PartyFactory::addParty($party);
             $session->setParty($party);
         }
+    }
+
+    private function onOpenPublicParties(): void {
+        $session = $this->getSession();
+        $session->getPlayer()->sendForm(new PublicPartiesForm($session));
     }
 
     private function onOpenInvitations(): void {
