@@ -4,8 +4,8 @@
 namespace diduhless\parties\form;
 
 
-use diduhless\parties\jojoe77777\formapi\CustomForm;
 use diduhless\parties\session\Session;
+use jojoe77777\FormAPI\CustomForm;
 use pocketmine\Player;
 
 abstract class PartyCustomForm extends CustomForm {
