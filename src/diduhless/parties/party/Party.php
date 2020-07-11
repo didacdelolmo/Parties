@@ -25,12 +25,28 @@ class Party {
     /** @var null|int */
     private $slots = null;
 
-    public function __construct(string $id) {
+    /**
+     * Party constructor.
+     * @param string $id
+     * @param Session[] $members
+     * @param Session $leader
+     */
+    public function __construct(string $id, array $members, Session $leader) {
         $this->id = $id;
+        $this->members = $members;
+        $this->leader = $leader;
     }
 
     public function getId(): string {
         return $this->id;
+    }
+
+    public function getMembers(): array {
+        return $this->members;
+    }
+
+    public function getLeader(): Session {
+        return $this->leader;
     }
 
     public function setLocked(bool $locked): void {
