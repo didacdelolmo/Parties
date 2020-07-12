@@ -22,8 +22,8 @@ class Party {
     /** @var bool */
     private $locked = false;
 
-    /** @var null|int */
-    private $slots = null;
+    /** @var int */
+    private $slots = 8;
 
     public function __construct(string $id, Session $leader) {
         $this->id = $id;
@@ -47,7 +47,7 @@ class Party {
         return $this->leader->getPlayer()->getName();
     }
 
-    public function getSlots(): ?int {
+    public function getSlots(): int {
         return $this->slots;
     }
 
@@ -63,7 +63,7 @@ class Party {
         $this->locked = $locked;
     }
 
-    public function setSlots(?int $slots): void {
+    public function setSlots(int $slots): void {
         $this->slots = $slots;
     }
 
