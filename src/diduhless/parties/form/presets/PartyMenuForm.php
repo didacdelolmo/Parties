@@ -43,6 +43,7 @@ class PartyMenuForm extends PartySimpleForm {
         if(!$event->isCancelled()) {
             $party->add($session);
             PartyFactory::addParty($party);
+            $session->openPartyForm();
         }
     }
 
