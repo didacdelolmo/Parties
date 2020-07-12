@@ -14,7 +14,7 @@ class PartyItem extends Item {
 
     public function __construct() {
         $this->setCustomName(TextFormat::GREEN . "Party");
-        parent::__construct(Item::BOOK, 0, "Party");
+        parent::__construct(Item::HEART_OF_THE_SEA, 0, "Party");
     }
 
     public function onClickAir(Player $player, Vector3 $directionVector): bool {
