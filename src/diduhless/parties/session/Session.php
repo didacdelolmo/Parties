@@ -6,8 +6,11 @@ declare(strict_types=1);
 namespace diduhless\parties\session;
 
 
+use diduhless\parties\form\presets\PartyMenuForm;
+use diduhless\parties\form\presets\YourPartyForm;
 use diduhless\parties\party\Invitation;
 use diduhless\parties\party\Party;
+use diduhless\parties\party\PartyItem;
 use diduhless\parties\utils\Colors;
 use pocketmine\Player;
 
@@ -74,6 +77,23 @@ class Session {
         }
     }
 
+    public function openPartyForm(): void {
+        if($this->hasParty()) {
+            $this->player->sendForm(new YourPartyForm($this));
+        } else {
+            $this->player->sendForm(new PartyMenuForm($this));
+        }
+    }
+
+    public function givePartyItem(?int $slot = null): void {
+        $inventory = $this->player->getInventory();
+        $item = new PartyItem();
+        if($slot !== null) {
+            $inventory->setItem($slot, $item);
+        } else {
+            $inventory->addItem($item);
+        }
+    }
 
     public function message(string $message): void {
         $this->getPlayer()->sendMessage(Colors::translate($message));
