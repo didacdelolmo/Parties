@@ -26,6 +26,10 @@ class Session {
         $this->player = $player;
     }
 
+    public function getUsername(): string {
+        return $this->player->getName();
+    }
+
     public function getPlayer(): Player {
         return $this->player;
     }
@@ -50,6 +54,10 @@ class Session {
 
     public function hasParty(): bool {
         return $this->party !== null;
+    }
+
+    public function isPartyLeader(): bool {
+        return $this->hasParty() ? $this->party->getLeaderName() === $this->getUsername() : false;
     }
 
     public function setParty(?Party $party): void {

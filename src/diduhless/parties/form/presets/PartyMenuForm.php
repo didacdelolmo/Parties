@@ -20,7 +20,7 @@ class PartyMenuForm extends PartySimpleForm {
         $this->addButton("Invitations [" . count($this->getSession()->getInvitations()) . "]");
     }
 
-    public function setCallback(Player $player, ?int $result): void {
+    public function setCallback(?int $result): void {
         if($result === null) return;
         switch($result) {
             case 0:
@@ -37,13 +37,13 @@ class PartyMenuForm extends PartySimpleForm {
 
     private function onPartyCreate(): void {
         $session = $this->getSession();
-        $party = new Party(uniqid(), [$session], $session);
+        $party = new Party(uniqid(), $session);
         $event = new PartyCreateEvent($party, $session);
 
         $event->call();
         if(!$event->isCancelled()) {
+            $party->add($session);
             PartyFactory::addParty($party);
-            $session->setParty($party);
         }
     }
 

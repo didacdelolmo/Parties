@@ -25,13 +25,14 @@ class InvitationsForm extends PartySimpleForm {
 
         $this->setContent("These are your party invitations:");
         foreach($this->invitations as $invitation) {
-            $this->addButton(TextFormat::GREEN . $invitation->getSender()->getPlayer()->getName() . "'s Party");
+            $this->addButton(TextFormat::GREEN . $invitation->getSender()->getUsername() . "'s Party");
         }
     }
 
-    public function setCallback(Player $player, ?int $result): void {
+    public function setCallback(?int $result): void {
         if($result !== null and isset($this->invitations[$result])) {
-            // Send confirmation form (yes or no)
+            $session = $this->getSession();
+            $session->getPlayer()->sendForm(new ConfirmInvitationForm($this->invitations[$result], $session));
         }
     }
 }

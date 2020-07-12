@@ -16,14 +16,14 @@ abstract class PartyCustomForm extends CustomForm {
     public function __construct(Session $session) {
         $this->session = $session;
         parent::__construct(function(Player $player, ?array $options) {
-            $this->setCallback($player, $options);
+            $this->setCallback($options);
         });
         $this->onCreation();
     }
 
     abstract public function onCreation(): void;
 
-    abstract public function setCallback(Player $player, ?array $options): void;
+    abstract public function setCallback(?array $options): void;
 
     public function getSession(): Session {
         return $this->session;

@@ -25,7 +25,7 @@ class PublicPartiesForm extends PartySimpleForm {
         }
     }
 
-    public function setCallback(Player $player, ?int $result): void {
+    public function setCallback(?int $result): void {
         if($result === null or !isset($this->parties[$result])) return;
         //
     }

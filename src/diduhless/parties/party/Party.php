@@ -13,11 +13,11 @@ class Party {
     /** @var string */
     private $id;
 
-    /** @var Session[] */
-    private $members;
-
     /** @var Session */
     private $leader;
+
+    /** @var Session[] */
+    private $members = [];
 
     /** @var bool */
     private $locked = false;
@@ -25,16 +25,10 @@ class Party {
     /** @var null|int */
     private $slots = null;
 
-    /**
-     * Party constructor.
-     * @param string $id
-     * @param Session[] $members
-     * @param Session $leader
-     */
-    public function __construct(string $id, array $members, Session $leader) {
+    public function __construct(string $id, Session $leader) {
         $this->id = $id;
-        $this->members = $members;
         $this->leader = $leader;
+        $this->members[] = $leader;
     }
 
     public function getId(): string {
@@ -57,12 +51,30 @@ class Party {
         return $this->locked;
     }
 
+    public function setLeader(Session $leader): void {
+        $this->leader = $leader;
+    }
+
     public function setLocked(bool $locked): void {
         $this->locked = $locked;
     }
 
     public function setSlots(?int $slots): void {
         $this->slots = $slots;
+    }
+
+    public function add(Session $session): void {
+        if(!in_array($session, $this->members)) {
+            $this->members[] = $session;
+        }
+        $session->setParty($this);
+    }
+
+    public function remove(Session $session): void {
+        if(in_array($session, $this->members)) {
+            unset($this->members[array_search($session, $this->members)]);
+        }
+        $session->setParty(null);
     }
 
 }

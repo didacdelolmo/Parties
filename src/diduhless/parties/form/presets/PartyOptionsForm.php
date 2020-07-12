@@ -19,7 +19,7 @@ class PartyOptionsForm extends PartyCustomForm {
         $this->addSlider("Set your maximum party slots (1 = none):", 1, 8);
     }
 
-    public function setCallback(Player $player, ?array $options): void {
+    public function setCallback(?array $options): void {
         $session = $this->getSession();
         if($options === null or !$session->hasParty() or !isset($options[1]) or !isset($options[2])) return;
         $party = $session->getParty();
