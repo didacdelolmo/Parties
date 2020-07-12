@@ -7,6 +7,7 @@ namespace diduhless\parties\session;
 
 
 
+use InvalidArgumentException;
 use pocketmine\Player;
 
 class SessionFactory {
@@ -29,9 +30,9 @@ class SessionFactory {
     static public function createSession(Player $player): void {
         $username = $player->getName();
         if(self::hasSession($player)) {
-           throw new \InvalidArgumentException("Can't open a session for $username because they already have one");
+           throw new InvalidArgumentException("Can't open a session for $username because they already have one");
         } else {
-            self::$sessions[$username] = $player;
+            self::$sessions[$username] = new Session($player);
         }
     }
 
@@ -40,7 +41,7 @@ class SessionFactory {
         if(self::hasSession($player)) {
             unset(self::$sessions[$username]);
         } else {
-            throw new \InvalidArgumentException("Can't remove $username's session because they don't have an open session");
+            throw new InvalidArgumentException("Can't remove $username's session because they don't have an open session");
         }
     }
 
