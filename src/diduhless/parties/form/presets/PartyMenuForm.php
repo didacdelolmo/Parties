@@ -8,7 +8,6 @@ use diduhless\parties\event\PartyCreateEvent;
 use diduhless\parties\form\PartySimpleForm;
 use diduhless\parties\party\Party;
 use diduhless\parties\party\PartyFactory;
-use pocketmine\Player;
 
 class PartyMenuForm extends PartySimpleForm {
 

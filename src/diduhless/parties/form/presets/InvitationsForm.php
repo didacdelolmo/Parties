@@ -6,7 +6,6 @@ namespace diduhless\parties\form\presets;
 
 use diduhless\parties\form\PartySimpleForm;
 use diduhless\parties\party\Invitation;
-use pocketmine\Player;
 use pocketmine\utils\TextFormat;
 
 class InvitationsForm extends PartySimpleForm {

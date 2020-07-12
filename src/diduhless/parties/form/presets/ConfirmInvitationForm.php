@@ -7,7 +7,6 @@ namespace diduhless\parties\form\presets;
 use diduhless\parties\form\PartyModalForm;
 use diduhless\parties\party\Invitation;
 use diduhless\parties\session\Session;
-use pocketmine\Player;
 
 class ConfirmInvitationForm extends PartyModalForm {
 

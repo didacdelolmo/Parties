@@ -7,7 +7,6 @@ namespace diduhless\parties\form\presets;
 use diduhless\parties\form\PartySimpleForm;
 use diduhless\parties\party\Party;
 use diduhless\parties\party\PartyFactory;
-use pocketmine\Player;
 
 class PublicPartiesForm extends PartySimpleForm {
 

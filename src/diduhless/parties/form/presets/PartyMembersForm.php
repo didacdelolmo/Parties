@@ -6,7 +6,6 @@ namespace diduhless\parties\form\presets;
 
 use diduhless\parties\form\PartySimpleForm;
 use diduhless\parties\session\Session;
-use pocketmine\Player;
 
 class PartyMembersForm extends PartySimpleForm {
 

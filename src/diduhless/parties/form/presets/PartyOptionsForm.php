@@ -8,7 +8,6 @@ use diduhless\parties\event\PartyLockEvent;
 use diduhless\parties\event\PartyUnlockEvent;
 use diduhless\parties\event\PartyUpdateSlotsEvent;
 use diduhless\parties\form\PartyCustomForm;
-use pocketmine\Player;
 
 class PartyOptionsForm extends PartyCustomForm {
 
