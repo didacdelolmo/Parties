@@ -12,10 +12,13 @@ use diduhless\parties\form\PartyCustomForm;
 class PartyOptionsForm extends PartyCustomForm {
 
     public function onCreation(): void {
+        $party = $this->getSession()->getParty();
+        $slots = $party->getSlots();
+
         $this->setTitle("Party Options");
         $this->addLabel("Change the party options in this window.");
-        $this->addToggle("Do you want to set your party locked?");
-        $this->addSlider("Set your maximum party slots (1 = none):", 1, 8);
+        $this->addToggle("Do you want to set your party locked?", $party->isLocked());
+        $this->addSlider("Set your maximum party slots:    (0 = no limit)", 0, 8, $slots !== null ? $slots : 0);
     }
 
     public function setCallback(?array $options): void {
