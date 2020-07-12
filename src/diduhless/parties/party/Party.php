@@ -47,6 +47,10 @@ class Party {
         return $this->leader->getPlayer()->getName();
     }
 
+    public function getSlots(): ?int {
+        return $this->slots;
+    }
+
     public function isLocked(): bool {
         return $this->locked;
     }
