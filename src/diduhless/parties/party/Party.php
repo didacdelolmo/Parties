@@ -10,6 +10,8 @@ use diduhless\parties\session\Session;
 
 class Party {
 
+    public const MAXIMUM_PARTY_MEMBERS = 8;
+
     /** @var string */
     private $id;
 
@@ -23,7 +25,7 @@ class Party {
     private $locked = false;
 
     /** @var int */
-    private $slots = 8;
+    private $slots = self::MAXIMUM_PARTY_MEMBERS;
 
     public function __construct(string $id, Session $leader) {
         $this->id = $id;
@@ -53,6 +55,10 @@ class Party {
 
     public function isLocked(): bool {
         return $this->locked;
+    }
+
+    public function isFull(): bool {
+        return count($this->members) >= self::MAXIMUM_PARTY_MEMBERS;
     }
 
     public function setLeader(Session $leader): void {
