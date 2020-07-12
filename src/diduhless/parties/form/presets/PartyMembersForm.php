@@ -18,7 +18,6 @@ class PartyMembersForm extends PartySimpleForm {
 
         $session = $this->getSession();
         $this->members = $session->getParty()->getMembers();
-        unset($this->members[array_search($session, $this->members)]);
 
         foreach($this->members as $member) {
             $this->addButton($member->getUsername());
@@ -30,8 +29,10 @@ class PartyMembersForm extends PartySimpleForm {
         if($result === null or !$session->hasParty()) return;
 
         $player = $session->getPlayer();
-        if($session->isPartyLeader()) {
-            $player->sendForm(new PartyMemberForm($this->members[$result], $session));
+        $member = $this->members[$result];
+
+        if($session->isPartyLeader() and !$member->isPartyLeader()) {
+            $player->sendForm(new PartyMemberForm($member, $session));
         } else {
             $player->sendForm(new PartyMembersForm($session));
         }

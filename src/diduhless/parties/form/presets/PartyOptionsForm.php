@@ -8,6 +8,7 @@ use diduhless\parties\event\PartyLockEvent;
 use diduhless\parties\event\PartyUnlockEvent;
 use diduhless\parties\event\PartyUpdateSlotsEvent;
 use diduhless\parties\form\PartyCustomForm;
+use diduhless\parties\party\Party;
 
 class PartyOptionsForm extends PartyCustomForm {
 
@@ -17,7 +18,7 @@ class PartyOptionsForm extends PartyCustomForm {
         $this->setTitle("Party Options");
         $this->addLabel("Change the party options in this window.");
         $this->addToggle("Do you want to set your party locked?", $party->isLocked());
-        $this->addSlider("Set your maximum party slots", 1, 8, -1, $party->getSlots());
+        $this->addSlider("Set your maximum party slots", 1, Party::MAXIMUM_PARTY_MEMBERS, 1, $party->getSlots());
     }
 
     public function setCallback(?array $options): void {
