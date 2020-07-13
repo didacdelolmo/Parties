@@ -8,7 +8,7 @@ use diduhless\parties\event\PartySetPublicEvent;
 use diduhless\parties\event\PartySetPrivateEvent;
 use diduhless\parties\event\PartyUpdateSlotsEvent;
 use diduhless\parties\form\PartyCustomForm;
-use diduhless\parties\party\Party;
+use diduhless\parties\utils\ConfigGetter;
 
 class PartyOptionsForm extends PartyCustomForm {
 
@@ -18,7 +18,7 @@ class PartyOptionsForm extends PartyCustomForm {
         $this->setTitle("Party Options");
         $this->addLabel("Change the party options in this window.");
         $this->addToggle("Do you want to set your party public?", $party->isPublic());
-        $this->addSlider("Set your maximum party slots", 1, Party::MAXIMUM_PARTY_MEMBERS, 1, $party->getSlots());
+        $this->addSlider("Set your maximum party slots", 1, ConfigGetter::getMaximumSlots(), 1, $party->getSlots());
     }
 
     public function setCallback(?array $options): void {
