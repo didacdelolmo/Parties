@@ -90,4 +90,12 @@ class Party {
         $session->setParty(null);
     }
 
+    public function message(string $message, bool $ignoreLeader = false): void {
+        foreach($this->members as $member) {
+            if(!$ignoreLeader and $member->getUsername() !== $this->getLeaderName()) {
+                $member->message($message);
+            }
+        }
+    }
+
 }
