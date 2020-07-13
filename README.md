@@ -20,7 +20,7 @@
 ## Commands
 
 - /party — Opens the party form
-- /party <message> — Sends a message to the party chat
+- /party (message) — Sends a message to the party chat
   
 ## Dependencies
 
