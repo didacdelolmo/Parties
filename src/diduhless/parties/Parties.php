@@ -6,6 +6,7 @@ declare(strict_types=1);
 namespace diduhless\parties;
 
 
+use diduhless\parties\listener\ConfigurationListener;
 use diduhless\parties\listener\PartyEventListener;
 use diduhless\parties\listener\PlayerJoinListener;
 use diduhless\parties\listener\SessionListener;
@@ -32,6 +33,7 @@ class Parties extends PluginBase {
        $this->registerEvents(new SessionListener());
        $this->registerEvents(new PlayerJoinListener());
        $this->registerEvents(new PartyEventListener());
+       $this->registerEvents(new ConfigurationListener());
        $this->getServer()->getCommandMap()->register("parties", new PartyCommand());
    }
 
