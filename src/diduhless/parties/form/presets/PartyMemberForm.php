@@ -45,7 +45,7 @@ class PartyMemberForm extends PartySimpleForm {
         $session = $this->getSession();
         $party = $session->getParty();
 
-        $event = new PartyMemberKickEvent($party, $session);
+        $event = new PartyMemberKickEvent($party, $session, $this->member);
         $event->call();
 
         if(!$event->isCancelled()) {
@@ -57,7 +57,7 @@ class PartyMemberForm extends PartySimpleForm {
         $session = $this->getSession();
         $party = $session->getParty();
 
-        $event = new PartyLeaderPromoteEvent($party, $session);
+        $event = new PartyLeaderPromoteEvent($party, $session, $this->member);
         $event->call();
 
         if(!$event->isCancelled()) {

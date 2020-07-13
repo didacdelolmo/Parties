@@ -4,8 +4,8 @@
 namespace diduhless\parties\form\presets;
 
 
-use diduhless\parties\event\PartyLockEvent;
-use diduhless\parties\event\PartyUnlockEvent;
+use diduhless\parties\event\PartySetPublicEvent;
+use diduhless\parties\event\PartySetPrivateEvent;
 use diduhless\parties\event\PartyUpdateSlotsEvent;
 use diduhless\parties\form\PartyCustomForm;
 use diduhless\parties\party\Party;
@@ -27,13 +27,13 @@ class PartyOptionsForm extends PartyCustomForm {
         $party = $session->getParty();
 
         if($options[1]) {
-            $event = new PartyLockEvent($party, $session);
+            $event = new PartySetPublicEvent($party, $session);
             $event->call();
             if(!$event->isCancelled()) {
                 $party->setPublic(true);
             }
         } else {
-            $event = new PartyUnlockEvent($party, $session);
+            $event = new PartySetPrivateEvent($party, $session);
             $event->call();
             if(!$event->isCancelled()) {
                 $party->setPublic(false);
