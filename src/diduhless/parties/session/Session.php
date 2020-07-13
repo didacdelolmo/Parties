@@ -67,6 +67,10 @@ class Session {
         return $this->hasParty() ? $this->party->getLeaderName() === $this->getUsername() : false;
     }
 
+    public function isOnline(): bool {
+        return SessionFactory::hasSession($this->player);
+    }
+
     public function setParty(?Party $party): void {
         $this->party = $party;
     }
