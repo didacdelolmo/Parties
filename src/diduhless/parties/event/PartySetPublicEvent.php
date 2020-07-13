@@ -4,6 +4,6 @@
 namespace diduhless\parties\event;
 
 
-class PartyUnlockEvent extends PartyEvent {
+class PartySetPublicEvent extends PartyEvent {
 
 }
