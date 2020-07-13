@@ -17,8 +17,12 @@ class PartyMembersForm extends PartySimpleForm {
         $this->setContent("Current members in your party:");
 
         $session = $this->getSession();
-        $this->members = $session->getParty()->getMembers();
+        $members = $session->getParty()->getMembers();
 
+        unset($members[array_search($session, $members)]);
+        array_unshift($members, $session);
+
+        $this->members = $members;
         foreach($this->members as $member) {
             $this->addButton($member->getUsername());
         }

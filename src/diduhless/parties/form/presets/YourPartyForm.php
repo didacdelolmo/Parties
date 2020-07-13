@@ -4,6 +4,8 @@
 namespace diduhless\parties\form\presets;
 
 
+use diduhless\parties\event\PartyDisbandEvent;
+use diduhless\parties\event\PartyLeaveEvent;
 use diduhless\parties\form\PartySimpleForm;
 use diduhless\parties\party\PartyFactory;
 
@@ -24,9 +26,7 @@ class YourPartyForm extends PartySimpleForm {
     public function setCallback(?int $result): void {
         $session = $this->getSession();
         if($result === null or !$session->hasParty()) return;
-
         $player = $session->getPlayer();
-        $party = $session->getParty();
 
         switch($result) {
             case 0:
@@ -34,17 +34,39 @@ class YourPartyForm extends PartySimpleForm {
                 break;
             case 1:
                 if($session->isPartyLeader()) {
-                    foreach($party->getMembers() as $member) {
-                        $party->remove($member);
-                        PartyFactory::removeParty($party);
-                    }
+                    $this->disbandParty();
                 } else {
-                    $party->remove($session);
+                    $this->leaveParty();
                 }
                 break;
             case 2:
                 $player->sendForm(new PartyOptionsForm($session));
                 break;
+        }
+    }
+
+    private function disbandParty(): void {
+        $session = $this->getSession();
+        $party = $session->getParty();
+
+        $event = new PartyDisbandEvent($party, $session);
+        $event->call();
+        if($event->isCancelled()) return;
+
+        foreach($party->getMembers() as $member) {
+            $party->remove($member);
+            PartyFactory::removeParty($party);
+        }
+    }
+
+    private function leaveParty(): void {
+        $session = $this->getSession();
+        $party = $session->getParty();
+
+        $event = new PartyLeaveEvent($party, $session);
+        $event->call();
+        if(!$event->isCancelled()) {
+            $party->remove($session);
         }
     }
 

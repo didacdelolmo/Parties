@@ -29,14 +29,20 @@ class PublicPartiesForm extends PartySimpleForm {
                 $this->addButton($party->getLeaderName() . "'s Party");
             }
         }
+        $this->addButton("Go back");
     }
 
     public function setCallback(?int $result): void {
-        if($result === null or !isset($this->parties[$result])) return;
-        $party = $this->parties[$result];
-
-        if(!$party->isFull()) return;
+        if($result === null) return;
         $session = $this->getSession();
+
+        if(empty($this->parties) and $result === 0 or !empty($this->parties) and $result === count($this->parties) + 1) {
+            $session->openPartyForm();
+            return;
+        } elseif(!isset($this->parties[$result]) or !$this->parties[$result]->isFull()) {
+            return;
+        }
+        $party = $this->parties[$result];
 
         $event = new PartyJoinEvent($party, $session);
         $event->call();
