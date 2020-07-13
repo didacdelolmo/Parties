@@ -19,7 +19,7 @@ class ConfirmInvitationForm extends PartyModalForm {
     }
 
     public function onCreation(): void {
-        $this->setTitle("Confirm the invitation");
+        $this->setTitle("Join a party");
         $this->setContent("Do you want to join this party?");
         $this->setButton1("Yes");
         $this->setButton2("No");

@@ -90,11 +90,13 @@ class Party {
         $session->setParty(null);
     }
 
-    public function message(string $message, bool $ignoreLeader = false): void {
+    /*
+     * If you set a session instance to $ignoredMember, that session will not receive the party message
+     */
+    public function message(string $message, ?Session $ignoredMember = null): void {
         foreach($this->members as $member) {
-            if(!$ignoreLeader and $member->getUsername() !== $this->getLeaderName()) {
-                $member->message($message);
-            }
+            if($ignoredMember !== null and $member->getUsername() === $ignoredMember->getUsername()) continue;
+            $member->message($message);
         }
     }
 

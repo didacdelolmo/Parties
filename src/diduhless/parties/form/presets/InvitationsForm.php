@@ -6,7 +6,6 @@ namespace diduhless\parties\form\presets;
 
 use diduhless\parties\form\PartySimpleForm;
 use diduhless\parties\party\Invitation;
-use pocketmine\utils\TextFormat;
 
 class InvitationsForm extends PartySimpleForm {
 
@@ -22,7 +21,7 @@ class InvitationsForm extends PartySimpleForm {
         } else {
             $this->setContent("These are your party invitations:");
             foreach($this->invitations as $invitation) {
-                $this->addButton(TextFormat::GREEN . $invitation->getSender()->getUsername() . "'s Party");
+                $this->addButton($invitation->getSender()->getUsername() . "'s Party");
             }
         }
         $this->addButton("Go back");
@@ -34,9 +33,9 @@ class InvitationsForm extends PartySimpleForm {
             return;
         } elseif(empty($this->invitations) and $result === 0 or !empty($this->invitations) and $result === count($this->invitations) + 1) {
             $session->openPartyForm();
-        } elseif(isset($this->invitations[$result])) {
+        } else {
             $session = $this->getSession();
-            $session->getPlayer()->sendForm(new ConfirmInvitationForm($this->invitations[$result], $session));
+            $session->getPlayer()->sendForm(new ConfirmInvitationForm(array_values($this->invitations)[$result], $session));
         }
     }
 }
