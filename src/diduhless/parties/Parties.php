@@ -20,13 +20,19 @@ class Parties extends PluginBase {
 
     public function onLoad() {
         self::$instance = $this;
+
+        $dataFolder = $this->getDataFolder();
+        if(!is_dir($dataFolder)) {
+            mkdir($dataFolder);
+        }
+        $this->saveDefaultConfig();
     }
 
     public function onEnable() {
        $this->registerEvents(new SessionListener());
        $this->registerEvents(new PlayerJoinListener());
        $this->registerEvents(new PartyEventListener());
-       $this->getServer()->getCommandMap()->register("party", new PartyCommand());
+       $this->getServer()->getCommandMap()->register("parties", new PartyCommand());
    }
 
    private function registerEvents(Listener $listener): void {
