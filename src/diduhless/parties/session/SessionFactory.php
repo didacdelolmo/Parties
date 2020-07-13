@@ -28,8 +28,12 @@ class SessionFactory {
         return self::getSessionByName(strtolower($player->getName())) ?? null;
     }
 
+    static public function hasSessionByName(string $username): bool {
+        return array_key_exists(strtolower($username), self::$sessions);
+    }
+
     static public function hasSession(Player $player): bool {
-        return array_key_exists(strtolower($player->getName()), self::$sessions);
+        return self::hasSessionByName($player->getName());
     }
 
     static public function createSession(Player $player): void {
