@@ -15,4 +15,5 @@ disable-pvp-with-party-members: true
 teleport-members-to-leader-on-change-world: true
 
 # Do you want to teleport all the party members to the leader gets teleported to another server?
-teleport-members-to-leader-on-change-server: true
+# To transfer a player to another server, use Player->transfer()
+teleport-members-to-leader-on-transfer-server: true
