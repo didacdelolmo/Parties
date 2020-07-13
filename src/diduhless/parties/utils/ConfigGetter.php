@@ -20,15 +20,15 @@ class ConfigGetter {
         return self::get("maximum-party-slots");
     }
 
-    static public function isPvpDisabled(): int {
+    static public function isPvpDisabled(): bool {
         return self::get("disable-pvp-with-party-members");
     }
 
-    static public function isWorldTeleportEnabled(): int {
+    static public function isWorldTeleportEnabled(): bool {
         return self::get("teleport-members-to-leader-on-change-world");
     }
 
-    static public function isTransferTeleportEnabled(): int {
+    static public function isTransferTeleportEnabled(): bool {
         return self::get("teleport-members-to-leader-on-transfer-server");
     }
 
