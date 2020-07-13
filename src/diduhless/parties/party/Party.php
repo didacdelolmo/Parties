@@ -7,6 +7,7 @@ namespace diduhless\parties\party;
 
 
 use diduhless\parties\session\Session;
+use diduhless\parties\session\SessionFactory;
 use diduhless\parties\utils\ConfigGetter;
 
 class Party {
@@ -55,6 +56,10 @@ class Party {
 
     public function hasMember(Session $session): bool {
         return in_array($session, $this->members, true);
+    }
+
+    public function hasMemberByName(string $username): bool {
+        return SessionFactory::hasSessionByName($username) ? $this->hasMember(SessionFactory::getSessionByName($username)) : false;
     }
 
     public function isPublic(): bool {
