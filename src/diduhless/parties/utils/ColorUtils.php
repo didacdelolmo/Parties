@@ -6,7 +6,7 @@ namespace diduhless\parties\utils;
 
 use pocketmine\utils\TextFormat;
 
-class Colors {
+class ColorUtils {
 
     static public function translate(string $message): string {
         $message = str_replace("{BLACK}", TextFormat::BLACK, $message);

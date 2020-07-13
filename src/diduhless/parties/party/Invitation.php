@@ -32,6 +32,14 @@ class Invitation {
         return $this->sender;
     }
 
+    public function getTarget(): Session {
+        return $this->target;
+    }
+
+    public function getPartyId(): string {
+        return $this->partyId;
+    }
+
     public function attemptToAccept(): void {
         $this->target->removeInvitation($this);
 
@@ -54,6 +62,7 @@ class Invitation {
         $event->call();
         if(!$event->isCancelled()) {
             $party->add($this->target);
+            $this->target->removeInvitationsFromParty($party);
         }
     }
 

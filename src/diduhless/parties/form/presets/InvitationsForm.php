@@ -31,7 +31,7 @@ class InvitationsForm extends PartySimpleForm {
         $session = $this->getSession();
         if($result === null) {
             return;
-        } elseif(empty($this->invitations) and $result === 0 or !empty($this->invitations) and $result === count($this->invitations) + 1) {
+        } elseif((empty($this->invitations) and $result === 0) or (!empty($this->invitations) and $result === count($this->invitations))) {
             $session->openPartyForm();
         } else {
             $session = $this->getSession();

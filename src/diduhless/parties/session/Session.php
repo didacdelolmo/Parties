@@ -11,7 +11,7 @@ use diduhless\parties\form\presets\YourPartyForm;
 use diduhless\parties\party\Invitation;
 use diduhless\parties\party\Party;
 use diduhless\parties\party\PartyItem;
-use diduhless\parties\utils\Colors;
+use diduhless\parties\utils\ColorUtils;
 use pocketmine\Player;
 
 class Session {
@@ -80,8 +80,16 @@ class Session {
     }
 
     public function removeInvitation(Invitation $invitation): void {
-        if(!$this->hasInvitation($invitation)) {
+        if($this->hasInvitation($invitation)) {
             unset($this->invitations[array_search($invitation, $this->invitations, true)]);
+        }
+    }
+
+    public function removeInvitationsFromParty(Party $party): void {
+        foreach($this->invitations as $invitation) {
+            if($invitation->getPartyId() === $party->getId()) {
+                $this->removeInvitation($invitation);
+            }
         }
     }
 
@@ -104,7 +112,7 @@ class Session {
     }
 
     public function message(string $message): void {
-        $this->getPlayer()->sendMessage(Colors::translate($message));
+        $this->getPlayer()->sendMessage(ColorUtils::translate($message));
     }
 
 }

@@ -17,7 +17,7 @@ class PublicPartiesForm extends PartySimpleForm {
     public function onCreation(): void {
         $parties = PartyFactory::getParties();
         foreach($parties as $party) {
-            if($party->isPublic()) {
+            if($party->isPublic() and !$party->isFull()) {
                 $this->parties[] = $party;
                 $this->addButton($party->getLeaderName() . "'s Party");
             }
@@ -35,10 +35,10 @@ class PublicPartiesForm extends PartySimpleForm {
         if($result === null) return;
         $session = $this->getSession();
 
-        if(empty($this->parties) and $result === 0 or !empty($this->parties) and $result === count($this->parties) + 1) {
+        if((empty($this->parties) and $result === 0) or (!empty($this->parties) and $result === count($this->parties))) {
             $session->openPartyForm();
         } else {
-            $party = $this->parties[$result];
+            $party = array_values($this->parties)[$result];
             $session->getPlayer()->sendForm(new ConfirmInvitationForm(new Invitation($party->getLeader(), $session, $party->getId()), $session));
         }
     }

@@ -66,7 +66,7 @@ class Party {
         return $this->public;
     }
     public function isFull(): bool {
-        return count($this->members) >= ConfigGetter::getMaximumSlots();
+        return count($this->members) >= $this->slots;
     }
 
     public function setLeader(Session $leader): void {
