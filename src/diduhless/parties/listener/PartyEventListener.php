@@ -18,10 +18,20 @@ use pocketmine\event\Listener;
 
 class PartyEventListener implements Listener {
 
+    /**
+     * @param PartyCreateEvent $event
+     * @ignoreCancelled
+     * @priority HIGHEST
+     */
     public function onCreate(PartyCreateEvent $event): void {
         $event->getSession()->message("{GREEN}You have created a party!");
     }
 
+    /**
+     * @param PartyDisbandEvent $event
+     * @ignoreCancelled
+     * @priority HIGHEST
+     */
     public function onDisband(PartyDisbandEvent $event): void {
         $session = $event->getSession();
         $party = $event->getParty();
@@ -30,6 +40,11 @@ class PartyEventListener implements Listener {
         $party->message("{RED}The party has been disbanded because {WHITE}" . $party->getLeaderName() . " {RED}left the party.", $session);
     }
 
+    /**
+     * @param PartyInviteEvent $event
+     * @ignoreCancelled
+     * @priority HIGHEST
+     */
     public function onInvite(PartyInviteEvent $event): void {
         $session = $event->getSession();
         $target = $event->getTarget();
@@ -41,6 +56,11 @@ class PartyEventListener implements Listener {
         $event->getParty()->message("$targetName {GREEN}has been invited to the party!", $session);
     }
 
+    /**
+     * @param PartyJoinEvent $event
+     * @ignoreCancelled
+     * @priority HIGHEST
+     */
     public function onJoin(PartyJoinEvent $event): void {
         $session = $event->getSession();
         $party = $event->getParty();
@@ -49,6 +69,11 @@ class PartyEventListener implements Listener {
         $party->message($session->getUsername() . " {GREEN}has joined the party!");
     }
 
+    /**
+     * @param PartyLeaderPromoteEvent $event
+     * @ignoreCancelled
+     * @priority HIGHEST
+     */
     public function onLeaderPromote(PartyLeaderPromoteEvent $event): void {
         $session = $event->getSession();
         $newLeader = $event->getNewLeader();
@@ -62,6 +87,11 @@ class PartyEventListener implements Listener {
         $party->message("$sessionName {GREEN}has promoted {WHITE}$newLeaderName {WHITE}to party leader!", $session);
     }
 
+    /**
+     * @param PartyLeaveEvent $event
+     * @ignoreCancelled
+     * @priority HIGHEST
+     */
     public function onLeave(PartyLeaveEvent $event): void {
         $session = $event->getSession();
         $party = $event->getParty();
@@ -70,6 +100,11 @@ class PartyEventListener implements Listener {
         $party->message($session->getUsername() . " {RED}has left the party!", $session);
     }
 
+    /**
+     * @param PartyMemberKickEvent $event
+     * @ignoreCancelled
+     * @priority HIGHEST
+     */
     public function onMemberKick(PartyMemberKickEvent $event): void {
         $member = $event->getMember();
 
@@ -77,14 +112,29 @@ class PartyEventListener implements Listener {
         $event->getParty()->message($member->getUsername() . " {RED}has been kicked from the party!", $member);
     }
 
+    /**
+     * @param PartySetPrivateEvent $event
+     * @ignoreCancelled
+     * @priority HIGHEST
+     */
     public function onLock(PartySetPrivateEvent $event): void {
         $event->getParty()->message("{GREEN}The party has been set to {WHITE}private{GREEN}!");
     }
 
+    /**
+     * @param PartySetPublicEvent $event
+     * @ignoreCancelled
+     * @priority HIGHEST
+     */
     public function onUnlock(PartySetPublicEvent $event): void {
         $event->getParty()->message("{GREEN}The party has been set to {WHITE}public{GREEN}!");
     }
 
+    /**
+     * @param PartyUpdateSlotsEvent $event
+     * @ignoreCancelled
+     * @priority HIGHEST
+     */
     public function onUpdateSlots(PartyUpdateSlotsEvent $event): void {
         $event->getParty()->message("{GREEN}The party slots have been set to {WHITE}" . $event->getSlots() . "{GREEN}!");
     }
