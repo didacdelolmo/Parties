@@ -18,7 +18,6 @@ class ConfirmInvitationForm extends PartyModalForm {
         parent::__construct($session);
     }
 
-
     public function onCreation(): void {
         $this->setTitle("Confirm the invitation");
         $this->setContent("Do you want to join this party?");
