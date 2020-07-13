@@ -1,0 +1,18 @@
+#  _____           _
+# |  __ \         | | (_)
+# | |__) |_ _ _ __| |_ _  ___  ___
+# |  ___/ _` | '__| __| |/ _ \/ __|
+# | |  | (_| | |  | |_| |  __/\__ \
+# |_|   \__,_|_|   \__|_|\___||___/
+
+# These are the maximum party slots
+maximum-party-slots: 8
+
+# Do you want to disable the pvp (player versus player) damage between the party members?
+disable-pvp-with-party-members: true
+
+# Do you want to teleport all the party members to the leader when the leader goes to another world?
+teleport-members-to-leader-on-change-world: true
+
+# Do you want to teleport all the party members to the leader gets teleported to another server?
+teleport-members-to-leader-on-change-server: true
