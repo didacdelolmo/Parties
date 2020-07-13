@@ -15,19 +15,18 @@ class PublicPartiesForm extends PartySimpleForm {
     private $parties;
 
     public function onCreation(): void {
-        $this->setTitle("Join a public party");
-
         $parties = PartyFactory::getParties();
-        if(empty($parties)) {
-            $this->setContent("There are no public parties to join! :(");
-        } else {
-            $this->setContent("Press on the party you want to join!");
-        }
         foreach($parties as $party) {
-            if(!$party->isLocked()) {
+            if($party->isPublic()) {
                 $this->parties[] = $party;
                 $this->addButton($party->getLeaderName() . "'s Party");
             }
+        }
+        $this->setTitle("Join a public party");
+        if(empty($this->parties)) {
+            $this->setContent("There are no public parties to join! :(");
+        } else {
+            $this->setContent("Press on the party you want to join!");
         }
         $this->addButton("Go back");
     }
@@ -39,7 +38,7 @@ class PublicPartiesForm extends PartySimpleForm {
         if(empty($this->parties) and $result === 0 or !empty($this->parties) and $result === count($this->parties) + 1) {
             $session->openPartyForm();
             return;
-        } elseif(!isset($this->parties[$result]) or !$this->parties[$result]->isFull()) {
+        } elseif(!isset($this->parties[$result]) or $this->parties[$result]->isFull()) {
             return;
         }
         $party = $this->parties[$result];

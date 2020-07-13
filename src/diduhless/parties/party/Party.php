@@ -22,7 +22,7 @@ class Party {
     private $members = [];
 
     /** @var bool */
-    private $locked = false;
+    private $public = false;
 
     /** @var int */
     private $slots = self::MAXIMUM_PARTY_MEMBERS;
@@ -53,10 +53,13 @@ class Party {
         return $this->slots;
     }
 
-    public function isLocked(): bool {
-        return $this->locked;
+    public function hasMember(Session $session): bool {
+        return in_array($session, $this->members, true);
     }
 
+    public function isPublic(): bool {
+        return $this->public;
+    }
     public function isFull(): bool {
         return count($this->members) >= self::MAXIMUM_PARTY_MEMBERS;
     }
@@ -65,8 +68,8 @@ class Party {
         $this->leader = $leader;
     }
 
-    public function setLocked(bool $locked): void {
-        $this->locked = $locked;
+    public function setPublic(bool $public): void {
+        $this->public = $public;
     }
 
     public function setSlots(int $slots): void {
@@ -74,15 +77,15 @@ class Party {
     }
 
     public function add(Session $session): void {
-        if(!in_array($session, $this->members)) {
+        if(!$this->hasMember($session)) {
             $this->members[] = $session;
         }
         $session->setParty($this);
     }
 
     public function remove(Session $session): void {
-        if(in_array($session, $this->members)) {
-            unset($this->members[array_search($session, $this->members)]);
+        if($this->hasMember($session)) {
+            unset($this->members[array_search($session, $this->members, true)]);
         }
         $session->setParty(null);
     }

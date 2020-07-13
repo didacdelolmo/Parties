@@ -55,6 +55,10 @@ class Session {
         return $this->invitations;
     }
 
+    public function hasInvitation(Invitation $invitation): bool {
+        return in_array($invitation, $this->invitations, true);
+    }
+
     public function hasParty(): bool {
         return $this->party !== null;
     }
@@ -72,8 +76,8 @@ class Session {
     }
 
     public function removeInvitation(Invitation $invitation): void {
-        if(!in_array($invitation, $this->invitations)) {
-            unset($this->invitations[array_search($invitation, $this->invitations)]);
+        if(!$this->hasInvitation($invitation)) {
+            unset($this->invitations[array_search($invitation, $this->invitations, true)]);
         }
     }
 

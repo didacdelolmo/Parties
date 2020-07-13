@@ -17,7 +17,7 @@ class PartyOptionsForm extends PartyCustomForm {
 
         $this->setTitle("Party Options");
         $this->addLabel("Change the party options in this window.");
-        $this->addToggle("Do you want to set your party locked?", $party->isLocked());
+        $this->addToggle("Do you want to set your party public?", $party->isPublic());
         $this->addSlider("Set your maximum party slots", 1, Party::MAXIMUM_PARTY_MEMBERS, 1, $party->getSlots());
     }
 
@@ -30,13 +30,13 @@ class PartyOptionsForm extends PartyCustomForm {
             $event = new PartyLockEvent($party, $session);
             $event->call();
             if(!$event->isCancelled()) {
-                $party->setLocked(true);
+                $party->setPublic(true);
             }
         } else {
             $event = new PartyUnlockEvent($party, $session);
             $event->call();
             if(!$event->isCancelled()) {
-                $party->setLocked(false);
+                $party->setPublic(false);
             }
         }
 

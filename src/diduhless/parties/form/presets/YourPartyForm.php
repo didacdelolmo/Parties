@@ -16,8 +16,9 @@ class YourPartyForm extends PartySimpleForm {
         $this->setContent("What do you want to check?");
         $this->addButton("Members");
         if($this->getSession()->isPartyLeader()) {
-            $this->addButton("Disband the party");
+            $this->addButton("Invite a player");
             $this->addButton("Party Options");
+            $this->addButton("Disband the party");
         } else {
             $this->addButton("Leave the party");
         }
@@ -34,7 +35,7 @@ class YourPartyForm extends PartySimpleForm {
                 break;
             case 1:
                 if($session->isPartyLeader()) {
-                    $this->disbandParty();
+                    $player->sendForm(new PartyInviteForm($session));
                 } else {
                     $this->leaveParty();
                 }
@@ -42,6 +43,8 @@ class YourPartyForm extends PartySimpleForm {
             case 2:
                 $player->sendForm(new PartyOptionsForm($session));
                 break;
+            case 3:
+                $this->disbandParty();
         }
     }
 

@@ -19,7 +19,7 @@ class PartyMembersForm extends PartySimpleForm {
         $session = $this->getSession();
         $members = $session->getParty()->getMembers();
 
-        unset($members[array_search($session, $members)]);
+        unset($members[array_search($session, $members, true)]);
         array_unshift($members, $session);
 
         $this->members = $members;
