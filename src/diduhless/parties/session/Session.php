@@ -59,6 +59,15 @@ class Session {
         return in_array($invitation, $this->invitations, true);
     }
 
+    public function hasSessionInvitation(Session $session): bool {
+        foreach($this->getInvitations() as $invitation) {
+            if($invitation->getSender()->getUsername() === $session->getUsername()) {
+                return true;
+            }
+        }
+        return false;
+    }
+
     public function hasParty(): bool {
         return $this->party !== null;
     }
@@ -86,7 +95,7 @@ class Session {
     }
 
     public function removeInvitationsFromParty(Party $party): void {
-        foreach($this->invitations as $invitation) {
+        foreach($this->getInvitations() as $invitation) {
             if($invitation->getPartyId() === $party->getId()) {
                 $this->removeInvitation($invitation);
             }
