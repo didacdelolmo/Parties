@@ -26,8 +26,12 @@ class ConfirmInvitationForm extends PartyModalForm {
     }
 
     public function setCallback(?bool $result): void {
-        if($result !== null and $result) {
+        if($result === null) {
+            return;
+        } elseif($result) {
             $this->invitation->attemptToAccept();
+        } else {
+            $this->invitation->getTarget()->removeInvitation($this->invitation);
         }
     }
 }

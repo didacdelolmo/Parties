@@ -13,7 +13,7 @@ use diduhless\parties\session\SessionFactory;
 class PartyInviteForm extends PartyCustomForm {
 
     /** @var Session[] */
-    private $sessions;
+    private $sessions = [];
 
     public function onCreation(): void {
         $this->setTitle("Invite a player");
@@ -32,23 +32,34 @@ class PartyInviteForm extends PartyCustomForm {
     }
 
     public function setCallback(?array $options): void {
-        if($options === null) return;
-
-        if(isset($options[0]) and $options[0] !== "") {
-            $target = SessionFactory::getSessionByName($options[0]);
-            if($target !== null and !$target->hasParty() and !$this->isCancelled($target)) {
-                $this->sendInvitation($target);
-            }
+        if($options === null) {
             return;
-        }
-
-        $value = 1;
-        foreach($this->sessions as $target) {
-            if(isset($options[$value]) and !$target->hasParty() and !$this->isCancelled($target)) {
-                $this->sendInvitation($target);
-                return;
+        } elseif(isset($options[0]) and !empty($options[0])) {
+            $this->attemptToInvite($options[0]);
+        } else {
+            $value = 1;
+            foreach($this->sessions as $target) {
+                if(isset($options[$value])) {
+                    $this->attemptToInvite($target->getUsername());
+                    return;
+                }
+                $value++;
             }
-            $value++;
+        }
+    }
+
+    private function attemptToInvite(string $username): void {
+        $session = $this->getSession();
+        $target = SessionFactory::getSessionByName($username);
+
+        if($target === null) {
+            $session->message("{RED}The player {WHITE}$username {RED}is not online!");
+        } elseif($target->hasParty()) {
+            $session->message($target->getUsername() . " {RED}is already on a party!");
+        } elseif($target->hasSessionInvitation($session)) {
+            $session->message("{RED}You have already invited {WHITE}" . $target->getUsername() . " {RED}to your party!");
+        } elseif(!$this->isCancelled($target)) {
+            $this->sendInvitation($target);
         }
     }
 
@@ -61,12 +72,7 @@ class PartyInviteForm extends PartyCustomForm {
 
     private function sendInvitation(Session $target): void {
         $session = $this->getSession();
-        $invitation = new Invitation($session, $target, $session->getParty()->getId());
-        if($target->hasInvitation($invitation)) {
-            $session->message("{RED}You have already invited {WHITE}" . $target->getUsername() . " {RED}to your party!");
-        } else {
-            $target->addInvitation($invitation);
-        }
+        $target->addInvitation(new Invitation($session, $target, $session->getParty()->getId()));
     }
 
 }
