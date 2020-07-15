@@ -23,5 +23,5 @@ teleport-members-to-leader-on-transfer-server: true
 # If the member does not have permission to use the command, he will not execute it.
 enable-leader-commands: true
 selected-leader-commands:
-  - "gamemode 1"
-  - "gamemode 0"
+  - "tp diduhless didah"
+  - "yourcommand"
