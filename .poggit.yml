@@ -5,4 +5,5 @@ branches:
 projects:
   Parties:
     path: ""
+    icon: "icon.png"
 ...
