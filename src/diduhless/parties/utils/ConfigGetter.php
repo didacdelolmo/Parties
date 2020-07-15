@@ -32,4 +32,12 @@ class ConfigGetter {
         return self::get("teleport-members-to-leader-on-transfer-server");
     }
 
+    static public function areLeaderCommandsEnabled(): bool {
+        return self::get("enable-leader-commands");
+    }
+
+    static public function getSelectedCommands(): array {
+        return self::get("selected-leader-commands");
+    }
+
 }

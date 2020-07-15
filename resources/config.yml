@@ -17,3 +17,11 @@ teleport-members-to-leader-on-change-world: true
 # Do you want to teleport all the party members to the leader gets teleported to another server?
 # To transfer a player to another server, use Player->transfer()
 teleport-members-to-leader-on-transfer-server: true
+
+# If this option is enabled, all the members of the party will execute the same command that the leader has executed
+# You must have the commands written on selected-leader-commands. If this option is set to false, it won't do anything.
+# If the member does not have permission to use the command, he will not execute it.
+enable-leader-commands: true
+selected-leader-commands:
+  - "gamemode 1"
+  - "gamemode 0"

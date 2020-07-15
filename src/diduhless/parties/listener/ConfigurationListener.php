@@ -9,8 +9,10 @@ use diduhless\parties\utils\ConfigGetter;
 use pocketmine\event\entity\EntityDamageByEntityEvent;
 use pocketmine\event\entity\EntityLevelChangeEvent;
 use pocketmine\event\Listener;
+use pocketmine\event\player\PlayerCommandPreprocessEvent;
 use pocketmine\event\player\PlayerTransferEvent;
 use pocketmine\Player;
+use pocketmine\Server;
 
 class ConfigurationListener implements Listener {
 
@@ -48,6 +50,21 @@ class ConfigurationListener implements Listener {
             if($session->isPartyLeader()) {
                 foreach($session->getParty()->getMembers() as $member) {
                     $member->getPlayer()->transfer($event->getAddress(), $event->getPort(), $event->getMessage());
+                }
+            }
+        }
+    }
+
+    public function onCommandPreprocess(PlayerCommandPreprocessEvent $event): void {
+        $player = $event->getPlayer();
+        $commandLine = str_replace("/", "", $event->getMessage());
+
+        if(ConfigGetter::areLeaderCommandsEnabled() and in_array($commandLine, ConfigGetter::getSelectedCommands()) and SessionFactory::hasSession($player)) {
+            $session = SessionFactory::getSession($player);
+
+            if($session->isPartyLeader()) {
+                foreach($session->getParty()->getMembers() as $member) {
+                    Server::getInstance()->dispatchCommand($member->getPlayer(), $commandLine);
                 }
             }
         }
