@@ -21,7 +21,3 @@
 
 - /party — Opens the party form
 - /party (message) — Sends a message to the party chat
-  
-## Dependencies
-
-- You must have [FormAPI](https://poggit.pmmp.io/p/FormAPI/1.3.0) in your plugins folder.
