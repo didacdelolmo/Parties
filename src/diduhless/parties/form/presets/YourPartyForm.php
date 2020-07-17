@@ -58,8 +58,8 @@ class YourPartyForm extends PartySimpleForm {
 
         foreach($party->getMembers() as $member) {
             $party->remove($member);
-            PartyFactory::removeParty($party);
         }
+        PartyFactory::removeParty($party);
     }
 
     private function leaveParty(): void {
