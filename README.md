@@ -1,5 +1,7 @@
+Download the plugin on poggit: [![](https://poggit.pmmp.io/shield.state/Parties)](https://poggit.pmmp.io/p/Parties)
+
 # Parties
-🎉 A parties plugin for PocketMine-MP servers
+🎉 A parties plugin for PocketMine-MP servers<br><br>
 
 ## Available features
 
@@ -10,6 +12,7 @@
   - **Disable the pvp** (player versus player) within the members of the party.
   - Teleport the party members to the party leader when the leader gets teleported to a different world.
   - Teleport the party members to the party leader when the leader gets **transfered** to another **server**.
+  - Make all the party members execute the same command as the party leader.
 
 ## In-game pictures
 
