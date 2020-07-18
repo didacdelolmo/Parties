@@ -36,7 +36,9 @@ class ConfigurationListener implements Listener {
 
             if($session->isPartyLeader()) {
                 foreach($session->getParty()->getMembers() as $member) {
-                    $member->getPlayer()->teleport($event->getTarget()->getSafeSpawn());
+                    if(!$member->isPartyLeader()) {
+                        $member->getPlayer()->teleport($event->getTarget()->getSafeSpawn());
+                    }
                 }
             }
         }
@@ -49,7 +51,9 @@ class ConfigurationListener implements Listener {
 
             if($session->isPartyLeader()) {
                 foreach($session->getParty()->getMembers() as $member) {
-                    $member->getPlayer()->transfer($event->getAddress(), $event->getPort(), $event->getMessage());
+                    if(!$member->isPartyLeader()) {
+                        $member->getPlayer()->transfer($event->getAddress(), $event->getPort(), $event->getMessage());
+                    }
                 }
             }
         }
@@ -64,7 +68,9 @@ class ConfigurationListener implements Listener {
 
             if($session->isPartyLeader()) {
                 foreach($session->getParty()->getMembers() as $member) {
-                    Server::getInstance()->dispatchCommand($member->getPlayer(), $commandLine);
+                    if(!$member->isPartyLeader()) {
+                        Server::getInstance()->dispatchCommand($member->getPlayer(), $commandLine);
+                    }
                 }
             }
         }
