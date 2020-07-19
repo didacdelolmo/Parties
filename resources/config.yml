@@ -26,9 +26,9 @@ selected-leader-commands:
   - "tp diduhless didah"
   - "yourcommand"
 
-# The party item is an item that is set to the player when he first joins the server.
+# The party item is an item that is set to the player when he joins the server.
 # Interacting with the party item opens the parties form (same as /party).
-give-party-item: false
+give-party-item: true
 # This is the index where the party item will be set.
 # For example, if you want to set the item to the 9th slot, you will have to put 8. (indexes start at 0 instead of 1)
 party-item-index: 8
