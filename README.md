@@ -1,4 +1,5 @@
-Download the plugin on poggit: [![](https://poggit.pmmp.io/shield.state/Parties)](https://poggit.pmmp.io/p/Parties)
+Download the plugin on poggit: [![](https://poggit.pmmp.io/shield.state/Parties)](https://poggit.pmmp.io/p/Parties) <br>
+Join my GitHub discord server: ![Discord](https://img.shields.io/discord/732039634745425972?color=%2392e5fc&label=discord)
 
 # Parties
 🎉 A parties plugin for PocketMine-MP servers<br><br>
