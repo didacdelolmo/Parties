@@ -22,12 +22,20 @@ class PartyFactory {
         return self::$parties[$id];
     }
 
+    static public function existsParty(Party $party): bool {
+        return array_key_exists($party->getId(), self::$parties);
+    }
+
     static public function addParty(Party $party): void {
-        self::$parties[$party->getId()] = $party;
+        if(!self::existsParty($party)) {
+            self::$parties[$party->getId()] = $party;
+        }
     }
 
     static public function removeParty(Party $party): void {
-        unset(self::$parties[$party->getId()]);
+        if(self::existsParty($party)) {
+            unset(self::$parties[$party->getId()]);
+        }
     }
 
 }
