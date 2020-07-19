@@ -40,4 +40,16 @@ class ConfigGetter {
         return self::get("selected-leader-commands");
     }
 
+    static public function isPartyItemEnabled(): bool {
+        return self::get("give-party-item");
+    }
+
+    static public function getPartyItemIndex(): int {
+        return self::get("party-item-index");
+    }
+
+    static public function getPartyItemValues(): array {
+        return self::get("party-item");
+    }
+
 }

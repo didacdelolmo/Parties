@@ -103,21 +103,11 @@ class Session {
     }
 
     public function openPartyForm(): void {
-        if($this->hasParty()) {
-            $this->player->sendForm(new YourPartyForm($this));
-        } else {
-            $this->player->sendForm(new PartyMenuForm($this));
-        }
+        $this->hasParty() ? $this->player->sendForm(new YourPartyForm($this)) : $this->player->sendForm(new PartyMenuForm($this));
     }
 
-    public function givePartyItem(?int $slot = null): void {
-        $inventory = $this->player->getInventory();
-        $item = new PartyItem();
-        if($slot !== null) {
-            $inventory->setItem($slot, $item);
-        } else {
-            $inventory->addItem($item);
-        }
+    public function givePartyItem(int $index): void {
+        $this->getPlayer()->getInventory()->setItem($index, new PartyItem());
     }
 
     public function message(string $message): void {

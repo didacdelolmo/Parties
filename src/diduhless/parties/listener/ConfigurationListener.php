@@ -10,6 +10,7 @@ use pocketmine\event\entity\EntityDamageByEntityEvent;
 use pocketmine\event\entity\EntityLevelChangeEvent;
 use pocketmine\event\Listener;
 use pocketmine\event\player\PlayerCommandPreprocessEvent;
+use pocketmine\event\player\PlayerJoinEvent;
 use pocketmine\event\player\PlayerTransferEvent;
 use pocketmine\Player;
 use pocketmine\Server;
@@ -73,6 +74,13 @@ class ConfigurationListener implements Listener {
                     }
                 }
             }
+        }
+    }
+
+    public function onJoin(PlayerJoinEvent $event): void {
+        $player = $event->getPlayer();
+        if(ConfigGetter::isPartyItemEnabled() and SessionFactory::hasSession($player)) {
+            SessionFactory::getSession($player)->givePartyItem(ConfigGetter::getPartyItemIndex());
         }
     }
 
