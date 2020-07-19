@@ -46,8 +46,8 @@ class SessionListener implements Listener {
 
         foreach($party->getMembers() as $member) {
             $party->remove($member);
-            PartyFactory::removeParty($party);
         }
+        PartyFactory::removeParty($party);
     }
 
 }
