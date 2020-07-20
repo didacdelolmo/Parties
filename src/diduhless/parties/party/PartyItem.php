@@ -22,7 +22,6 @@ class PartyItem extends Item {
     public function onClickAir(Player $player, Vector3 $directionVector): bool {
         if(SessionFactory::hasSession($player)) {
             SessionFactory::getSession($player)->openPartyForm();
-            return true;
         }
         return false;
     }
