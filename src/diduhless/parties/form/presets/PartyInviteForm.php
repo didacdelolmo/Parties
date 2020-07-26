@@ -37,14 +37,7 @@ class PartyInviteForm extends PartyCustomForm {
         } elseif(isset($options[0]) and !empty($options[0])) {
             $this->attemptToInvite($options[0]);
         } else {
-            $value = 1;
-            foreach($this->sessions as $target) {
-                if(isset($options[$value])) {
-                    $this->attemptToInvite($target->getUsername());
-                    return;
-                }
-                $value++;
-            }
+            $this->attemptToInvite($this->sessions[$options[1]]->getUsername());
         }
     }
 
