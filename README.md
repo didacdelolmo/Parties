@@ -25,3 +25,40 @@ Join my GitHub discord server: [![Discord](https://img.shields.io/discord/732039
 
 - /party — Opens the party form
 - /party (message) — Sends a message to the party chat
+
+## Code examples
+
+Setting the gamemode to spectator to all the members of the party when the party leader invites a player to join their party:
+```php
+public function onPartyInvite(PartyInviteEvent $event): void {
+    $session = $event->getSession();
+    if($session->isPartyLeader()) {
+        foreach($session->getParty()->getMembers() as $member) {
+            $member->getPlayer()->setGamemode(Player::SPECTATOR);
+        }
+    }
+} 
+```
+
+Allow only players with the permission 'slots.limit' to set the maximum slots to more than 3:
+```php
+public function onUpdateSlots(PartyUpdateSlotsEvent $event): void {
+    $session = $event->getSession();
+    if(!$session->getPlayer()->hasPermission("slots.limit") and $event->getSlots() > 3) {
+        $event->setCancelled();
+        $session->message("{RED}You do not have permissions to set the maximum slots to more than 3!");
+    }
+}
+```
+
+Setting the party public when an operator joins the party:
+```php
+public function onPartyJoin(PartyJoinEvent $event): void {
+    if($event->getSession()->getPlayer()->isOp()) {
+        $event->getParty()->setPublic(true);
+    }
+}
+```
+
+
+
