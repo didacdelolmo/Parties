@@ -16,6 +16,7 @@ class PartyItem extends Item {
     public function __construct() {
         $item = ConfigGetter::getPartyItemValues();
         $this->setCustomName(TextFormat::GREEN . $item[2]);
+        $this->getNamedTag()->setString("parties", "parties");
         parent::__construct($item[0], $item[1], $item[2]);
     }
 

@@ -44,6 +44,10 @@ class ConfigGetter {
         return self::get("give-party-item");
     }
 
+    static public function isPartyItemFixed(): bool {
+        return self::get("fix-party-item");
+    }
+
     static public function getPartyItemIndex(): int {
         return self::get("party-item-index");
     }

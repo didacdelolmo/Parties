@@ -8,6 +8,7 @@ use diduhless\parties\session\SessionFactory;
 use diduhless\parties\utils\ConfigGetter;
 use pocketmine\event\entity\EntityDamageByEntityEvent;
 use pocketmine\event\entity\EntityLevelChangeEvent;
+use pocketmine\event\inventory\InventoryTransactionEvent;
 use pocketmine\event\Listener;
 use pocketmine\event\player\PlayerCommandPreprocessEvent;
 use pocketmine\event\player\PlayerJoinEvent;
@@ -81,6 +82,16 @@ class ConfigurationListener implements Listener {
         $player = $event->getPlayer();
         if(ConfigGetter::isPartyItemEnabled() and SessionFactory::hasSession($player)) {
             SessionFactory::getSession($player)->givePartyItem(ConfigGetter::getPartyItemIndex());
+        }
+    }
+
+    public function onTransaction(InventoryTransactionEvent $event): void {
+        if(ConfigGetter::isPartyItemFixed()) {
+            foreach($event->getTransaction()->getActions() as $action) {
+                if($action->getSourceItem()->getNamedTag()->hasTag("parties")) {
+                    $event->setCancelled();
+                }
+            }
         }
     }
 
