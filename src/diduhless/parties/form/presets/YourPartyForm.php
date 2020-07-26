@@ -45,6 +45,7 @@ class YourPartyForm extends PartySimpleForm {
                 break;
             case 3:
                 $this->disbandParty();
+                break;
         }
     }
 
