@@ -20,11 +20,6 @@ class Parties extends PluginBase {
 
     public function onLoad() {
         self::$instance = $this;
-
-        $dataFolder = $this->getDataFolder();
-        if(!is_dir($dataFolder)) {
-            mkdir($dataFolder);
-        }
         $this->saveDefaultConfig();
     }
 
