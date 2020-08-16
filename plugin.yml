@@ -1,7 +1,7 @@
 main: diduhless\parties\Parties
 name: Parties
-author: Didah (Diduhless)
-website: https://github.com/Diduhless
 description: A parties plugin for PocketMine-MP servers
-version: 1.1.1
+website: https://github.com/Diduhless
+author: Didah (@Diduhless)
+version: 1.2.0
 api: 3.0.0
