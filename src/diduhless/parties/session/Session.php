@@ -6,8 +6,8 @@ declare(strict_types=1);
 namespace diduhless\parties\session;
 
 
-use diduhless\parties\form\presets\PartyMenuForm;
-use diduhless\parties\form\presets\YourPartyForm;
+use diduhless\parties\form\PartyMenuForm;
+use diduhless\parties\form\YourPartyForm;
 use diduhless\parties\party\Invitation;
 use diduhless\parties\party\Party;
 use diduhless\parties\party\PartyItem;
