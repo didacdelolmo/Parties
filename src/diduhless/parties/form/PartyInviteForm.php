@@ -32,7 +32,9 @@ class PartyInviteForm extends CustomForm {
             }
         }
         $this->addElement("input_player", new Input("Write the name of the player:"));
-        $this->addElement("dropdown_player", $dropdown);
+        if(!empty($dropdown->getOptions())) {
+            $this->addElement("dropdown_player", $dropdown);
+        }
     }
 
     protected function onSubmit(Player $player, FormResponse $response): void {
