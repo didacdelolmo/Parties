@@ -19,6 +19,9 @@ use pocketmine\Player;
 class PartyInviteForm extends CustomForm {
     use StoresSession;
 
+    /** @var bool */
+    private $is_dropdown = false;
+
     public function __construct(Session $session) {
         $this->session = $session;
         parent::__construct("Invite a player");
@@ -34,14 +37,13 @@ class PartyInviteForm extends CustomForm {
         $this->addElement("input_player", new Input("Write the name of the player:"));
         if(!empty($dropdown->getOptions())) {
             $this->addElement("dropdown_player", $dropdown);
+            $this->is_dropdown = true;
         }
     }
 
     protected function onSubmit(Player $player, FormResponse $response): void {
-        $input_username = $response->getInputSubmittedText("input_player");
-        $dropdown_username = $response->getDropdownSubmittedOptionId("dropdown_player");
-
-        $username = $input_username ?? $dropdown_username ?? null;
+        $player_name = $response->getInputSubmittedText("input_player");
+        $username = !empty($player_name) ? $player_name : ($this->is_dropdown ? $response->getDropdownSubmittedOptionId("dropdown_player") : null);
         if($username === null) {
             return;
         }

@@ -20,12 +20,20 @@ class ConfigGetter {
         return self::get("maximum-party-slots");
     }
 
+    static public function isPvpDisabledOption(): bool {
+        return self::get("show-disable-pvp-with-party-members-option");
+    }
+
     static public function isPvpDisabled(): bool {
-        return self::get("disable-pvp-with-party-members");
+        return self::get("default-disable-pvp-with-party-members");
+    }
+
+    static public function isWorldTeleportOption(): bool {
+        return self::get("show-teleport-members-to-leader-on-change-world-option");
     }
 
     static public function isWorldTeleportEnabled(): bool {
-        return self::get("teleport-members-to-leader-on-change-world");
+        return self::get("default-teleport-members-to-leader-on-change-world");
     }
 
     static public function isTransferTeleportEnabled(): bool {

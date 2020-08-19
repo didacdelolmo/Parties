@@ -8,11 +8,15 @@
 # These are the maximum party slots
 maximum-party-slots: 8
 
+# Do you want this option to be displayed on the party options form so party leaders can enable or disable it?
+show-disable-pvp-with-party-members-option: true
+show-teleport-members-to-leader-on-change-world-option: true
+
 # Do you want to disable the pvp (player versus player) damage between the party members?
-disable-pvp-with-party-members: true
+default-disable-pvp-with-party-members: true
 
 # Do you want to teleport all the party members to the leader when the leader goes to another world?
-teleport-members-to-leader-on-change-world: true
+default-teleport-members-to-leader-on-change-world: true
 
 # Do you want to teleport all the party members to the leader gets teleported to another server?
 # To transfer a player to another server, use Player->transfer()

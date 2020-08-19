@@ -11,9 +11,13 @@ use diduhless\parties\event\PartyJoinEvent;
 use diduhless\parties\event\PartyLeaderPromoteEvent;
 use diduhless\parties\event\PartyLeaveEvent;
 use diduhless\parties\event\PartyMemberKickEvent;
+use diduhless\parties\event\PartyPvpDisableEvent;
+use diduhless\parties\event\PartyPvpEnableEvent;
 use diduhless\parties\event\PartySetPrivateEvent;
 use diduhless\parties\event\PartySetPublicEvent;
 use diduhless\parties\event\PartyUpdateSlotsEvent;
+use diduhless\parties\event\PartyWorldTeleportDisableEvent;
+use diduhless\parties\event\PartyWorldTeleportEnableEvent;
 use pocketmine\event\Listener;
 
 class PartyEventListener implements Listener {
@@ -113,12 +117,48 @@ class PartyEventListener implements Listener {
     }
 
     /**
+     * @param PartyPvpEnableEvent $event
+     * @ignoreCancelled
+     * @priority HIGHEST
+     */
+    public function onEnablePvp(PartyPvpEnableEvent $event): void {
+        $event->getParty()->message("{GREEN}The party pvp has been {WHITE}enabled{GREEN}!");
+    }
+
+    /**
+     * @param PartyPvpDisableEvent $event
+     * @ignoreCancelled
+     * @priority HIGHEST
+     */
+    public function onDisablePvp(PartyPvpDisableEvent $event): void {
+        $event->getParty()->message("{GREEN}The party pvp has been {WHITE}disabled{GREEN}!");
+    }
+
+    /**
+     * @param PartyWorldTeleportEnableEvent $event
+     * @ignoreCancelled
+     * @priority HIGHEST
+     */
+    public function onWorldTeleportEnable(PartyWorldTeleportEnableEvent $event): void {
+        $event->getParty()->message("{GREEN}The party leader world teleport has been {WHITE}enabled{GREEN}!");
+    }
+
+    /**
+     * @param PartyWorldTeleportDisableEvent $event
+     * @ignoreCancelled
+     * @priority HIGHEST
+     */
+    public function onWorldTeleportDisable(PartyWorldTeleportDisableEvent $event): void {
+        $event->getParty()->message("{GREEN}The party leader world teleport has been {WHITE}disabled{GREEN}!");
+    }
+
+    /**
      * @param PartySetPrivateEvent $event
      * @ignoreCancelled
      * @priority HIGHEST
      */
     public function onLock(PartySetPrivateEvent $event): void {
-        $event->getParty()->message("{GREEN}The party has been set to {WHITE}private{GREEN}!");
+        $event->getParty()->message("{GREEN}The party is now {WHITE}private{GREEN}!");
     }
 
     /**
@@ -127,7 +167,7 @@ class PartyEventListener implements Listener {
      * @priority HIGHEST
      */
     public function onUnlock(PartySetPublicEvent $event): void {
-        $event->getParty()->message("{GREEN}The party has been set to {WHITE}public{GREEN}!");
+        $event->getParty()->message("{GREEN}The party is now {WHITE}public{GREEN}!");
     }
 
     /**

@@ -22,66 +22,74 @@ class ConfigurationListener implements Listener {
         $entity = $event->getEntity();
         $damager = $event->getDamager();
 
-        if(ConfigGetter::isPvpDisabled() and $entity instanceof Player and $damager instanceof Player and SessionFactory::hasSession($damager)) {
-            $session = SessionFactory::getSession($damager);
-
-            if($session->hasParty() and $session->getParty()->hasMemberByName($entity->getName())) {
-                $event->setCancelled();
-            }
+        if(!$entity instanceof Player or !$damager instanceof Player) {
+            return;
+        }
+        $session = SessionFactory::getSession($damager);
+        if(!$session->hasParty()) {
+            return;
+        }
+        $party = $session->getParty();
+        if(!$party->isPvp() and $party->hasMemberByName($entity->getName())) {
+            $event->setCancelled();
         }
     }
 
     public function onLevelChange(EntityLevelChangeEvent $event): void {
-        $player = $event->getEntity();
-        if(ConfigGetter::isWorldTeleportEnabled() and $player instanceof Player and SessionFactory::hasSession($player)) {
-            $session = SessionFactory::getSession($player);
-
-            if($session->isPartyLeader()) {
-                foreach($session->getParty()->getMembers() as $member) {
-                    if(!$member->isPartyLeader()) {
-                        $member->getPlayer()->teleport($event->getTarget()->getSafeSpawn());
-                    }
+        $entity = $event->getEntity();
+        if(!$entity instanceof Player) {
+            return;
+        }
+        $session = SessionFactory::getSession($entity);
+        if(!$session->isPartyLeader()) {
+            return;
+        }
+        $party = $session->getParty();
+        if($party->isLeaderWorldTeleport()) {
+            foreach($party->getMembers() as $member) {
+                if(!$member->isPartyLeader()) {
+                    $member->getPlayer()->teleport($event->getTarget()->getSafeSpawn());
                 }
             }
         }
     }
 
     public function onTransfer(PlayerTransferEvent $event): void {
-        $player = $event->getPlayer();
-        if(ConfigGetter::isTransferTeleportEnabled() and SessionFactory::hasSession($player)) {
-            $session = SessionFactory::getSession($player);
-
-            if($session->isPartyLeader()) {
-                foreach($session->getParty()->getMembers() as $member) {
-                    if(!$member->isPartyLeader()) {
-                        $member->getPlayer()->transfer($event->getAddress(), $event->getPort(), $event->getMessage());
-                    }
-                }
+        if(!ConfigGetter::isTransferTeleportEnabled()) {
+            return;
+        }
+        $session = SessionFactory::getSession($event->getPlayer());
+        if($session->isPartyLeader()) {
+            return;
+        }
+        foreach($session->getParty()->getMembers() as $member) {
+            if(!$member->isPartyLeader()) {
+                $member->getPlayer()->transfer($event->getAddress(), $event->getPort(), $event->getMessage());
             }
         }
     }
 
     public function onCommandPreprocess(PlayerCommandPreprocessEvent $event): void {
-        $player = $event->getPlayer();
-        $commandLine = str_replace("/", "", $event->getMessage());
-
-        if(ConfigGetter::areLeaderCommandsEnabled() and in_array($commandLine, ConfigGetter::getSelectedCommands()) and SessionFactory::hasSession($player)) {
-            $session = SessionFactory::getSession($player);
-
-            if($session->isPartyLeader()) {
-                foreach($session->getParty()->getMembers() as $member) {
-                    if(!$member->isPartyLeader()) {
-                        Server::getInstance()->dispatchCommand($member->getPlayer(), $commandLine);
-                    }
+        if(!ConfigGetter::areLeaderCommandsEnabled()) {
+            return;
+        }
+        $command = str_replace("/", "", $event->getMessage());
+        if(!in_array($command, ConfigGetter::getSelectedCommands())) {
+            return;
+        }
+        $session = SessionFactory::getSession($event->getPlayer());
+        if($session->isPartyLeader()) {
+            foreach($session->getParty()->getMembers() as $member) {
+                if(!$member->isPartyLeader()) {
+                    Server::getInstance()->dispatchCommand($member->getPlayer(), $command);
                 }
             }
         }
     }
 
     public function onJoin(PlayerJoinEvent $event): void {
-        $player = $event->getPlayer();
-        if(ConfigGetter::isPartyItemEnabled() and SessionFactory::hasSession($player)) {
-            SessionFactory::getSession($player)->givePartyItem(ConfigGetter::getPartyItemIndex());
+        if(ConfigGetter::isPartyItemEnabled()) {
+            SessionFactory::getSession($event->getPlayer())->givePartyItem(ConfigGetter::getPartyItemIndex());
         }
     }
 

@@ -24,6 +24,12 @@ class Party {
     /** @var bool */
     private $public = false;
 
+    /** @var bool */
+    private $pvp;
+
+    /** @var bool */
+    private $leader_world_teleport;
+
     /** @var int */
     private $slots;
 
@@ -31,6 +37,8 @@ class Party {
         $this->id = $id;
         $this->leader = $leader;
         $this->members[] = $leader;
+        $this->pvp = !ConfigGetter::isPvpDisabled();
+        $this->leader_world_teleport = ConfigGetter::isWorldTeleportEnabled();
         $this->slots = ConfigGetter::getMaximumSlots();
     }
 
@@ -42,18 +50,6 @@ class Party {
         return $this->members;
     }
 
-    public function getLeader(): Session {
-        return $this->leader;
-    }
-
-    public function getLeaderName(): string {
-        return $this->leader->getPlayer()->getName();
-    }
-
-    public function getSlots(): int {
-        return $this->slots;
-    }
-
     public function hasMember(Session $session): bool {
         return in_array($session, $this->members, true);
     }
@@ -62,19 +58,48 @@ class Party {
         return SessionFactory::hasSessionByName($username) ? $this->hasMember(SessionFactory::getSessionByName($username)) : false;
     }
 
-    public function isPublic(): bool {
-        return $this->public;
+    public function getLeader(): Session {
+        return $this->leader;
     }
-    public function isFull(): bool {
-        return count($this->members) >= $this->slots;
+
+    public function getLeaderName(): string {
+        return $this->leader->getPlayer()->getName();
     }
 
     public function setLeader(Session $leader): void {
         $this->leader = $leader;
     }
 
+    public function isFull(): bool {
+        return count($this->members) >= $this->slots;
+    }
+
+    public function isPublic(): bool {
+        return $this->public;
+    }
+
     public function setPublic(bool $public): void {
         $this->public = $public;
+    }
+
+    public function isPvp(): bool {
+        return $this->pvp;
+    }
+
+    public function setPvp(bool $pvp): void {
+        $this->pvp = $pvp;
+    }
+
+    public function isLeaderWorldTeleport(): bool {
+        return $this->leader_world_teleport;
+    }
+
+    public function setLeaderWorldTeleport(bool $leader_world_teleport): void {
+        $this->leader_world_teleport = $leader_world_teleport;
+    }
+
+    public function getSlots(): int {
+        return $this->slots;
     }
 
     public function setSlots(int $slots): void {
