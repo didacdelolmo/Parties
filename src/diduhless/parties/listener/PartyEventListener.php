@@ -88,7 +88,7 @@ class PartyEventListener implements Listener {
 
         $session->message("{GREEN}You have promoted {WHITE}$newLeaderName {GREEN}to party leader!");
         $newLeader->message("{GREEN}You have been promoted by {WHITE}$sessionName {GREEN}to party leader!");
-        $party->message("$sessionName {GREEN}has promoted {WHITE}$newLeaderName {WHITE}to party leader!", $session);
+        $party->message("$sessionName {GREEN}has promoted {WHITE}$newLeaderName {GREEN}to party leader!", $session);
     }
 
     /**
