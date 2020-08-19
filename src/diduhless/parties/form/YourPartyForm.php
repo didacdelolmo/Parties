@@ -68,6 +68,7 @@ class YourPartyForm extends SimpleForm {
             }
             PartyFactory::removeParty($party);
         });
+        $this->addButton($button);
     }
 
     private function addLeavePartyButton(): void {
