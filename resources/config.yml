@@ -38,6 +38,10 @@ fix-party-item: true
 # This is the index where the party item will be set.
 # For example, if you want to set the item to the 9th slot, you will have to put 8. (indexes start at 0 instead of 1)
 party-item-index: 8
+# The party item will only be given when a player moves to any of these worlds (uppercases matter).
+party-item-worlds:
+  - "worldname"
+  - "didah"
 # These three values represent: item id, item meta and item custom name.
 party-item:
   - 467

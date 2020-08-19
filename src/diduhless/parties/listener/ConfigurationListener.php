@@ -12,7 +12,9 @@ use pocketmine\event\inventory\InventoryTransactionEvent;
 use pocketmine\event\Listener;
 use pocketmine\event\player\PlayerCommandPreprocessEvent;
 use pocketmine\event\player\PlayerJoinEvent;
+use pocketmine\event\player\PlayerRespawnEvent;
 use pocketmine\event\player\PlayerTransferEvent;
+use pocketmine\level\Level;
 use pocketmine\Player;
 use pocketmine\Server;
 
@@ -40,6 +42,7 @@ class ConfigurationListener implements Listener {
         if(!$entity instanceof Player) {
             return;
         }
+        $this->checkPartyItem($entity, $event->getTarget());
         $session = SessionFactory::getSession($entity);
         if(!$session->isPartyLeader()) {
             return;
@@ -87,12 +90,6 @@ class ConfigurationListener implements Listener {
         }
     }
 
-    public function onJoin(PlayerJoinEvent $event): void {
-        if(ConfigGetter::isPartyItemEnabled()) {
-            SessionFactory::getSession($event->getPlayer())->givePartyItem(ConfigGetter::getPartyItemIndex());
-        }
-    }
-
     public function onTransaction(InventoryTransactionEvent $event): void {
         if(ConfigGetter::isPartyItemFixed()) {
             foreach($event->getTransaction()->getActions() as $action) {
@@ -100,6 +97,22 @@ class ConfigurationListener implements Listener {
                     $event->setCancelled();
                 }
             }
+        }
+    }
+
+    public function onJoin(PlayerJoinEvent $event): void {
+        $player = $event->getPlayer();
+        $this->checkPartyItem($player, $player->getLevel());
+    }
+
+    public function onRespawn(PlayerRespawnEvent $event): void {
+        $player = $event->getPlayer();
+        $this->checkPartyItem($player, $event->getRespawnPosition()->getLevel());
+    }
+
+    private function checkPartyItem(Player $player, Level $level): void {
+        if(ConfigGetter::isPartyItemEnabled() and in_array($level->getName(), ConfigGetter::getPartyItemWorldNames())) {
+            SessionFactory::getSession($player)->givePartyItem(ConfigGetter::getPartyItemIndex());
         }
     }
 

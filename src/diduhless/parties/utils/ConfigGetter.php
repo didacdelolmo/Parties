@@ -60,6 +60,10 @@ class ConfigGetter {
         return self::get("party-item-index");
     }
 
+    static public function getPartyItemWorldNames(): array {
+        return self::get("party-item-worlds");
+    }
+
     static public function getPartyItemValues(): array {
         return self::get("party-item");
     }
