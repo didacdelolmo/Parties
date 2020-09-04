@@ -3,5 +3,5 @@ name: Parties
 description: A parties plugin for PocketMine-MP servers
 website: https://github.com/Diduhless
 author: Didah (@Diduhless)
-version: 1.2.0
+version: 1.2.1
 api: 3.0.0
