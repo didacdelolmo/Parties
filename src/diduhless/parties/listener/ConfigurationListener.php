@@ -111,7 +111,7 @@ class ConfigurationListener implements Listener {
     }
 
     private function checkPartyItem(Player $player, Level $level): void {
-        if(ConfigGetter::isPartyItemEnabled() and in_array($level->getName(), ConfigGetter::getPartyItemWorldNames())) {
+        if(ConfigGetter::isPartyItemEnabled() and SessionFactory::hasSession($player) and in_array($level->getName(), ConfigGetter::getPartyItemWorldNames())) {
             SessionFactory::getSession($player)->givePartyItem(ConfigGetter::getPartyItemIndex());
         }
     }
