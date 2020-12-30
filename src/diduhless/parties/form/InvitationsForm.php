@@ -22,7 +22,7 @@ class InvitationsForm extends SimpleForm {
     protected function onCreation(): void {
         $invitations = $this->session->getInvitations();
 
-        if(!empty($this->invitations)) {
+        if(!empty($invitations)) {
             $this->setHeaderText("These are your party invitations:");
             foreach($invitations as $invitation) {
                 $this->addButton(new Button($invitation->getSender()->getUsername() . "'s Party", null, function(Player $player) use ($invitation) {
