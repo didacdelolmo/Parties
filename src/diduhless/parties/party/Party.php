@@ -118,14 +118,19 @@ class Party {
             unset($this->members[array_search($session, $this->members, true)]);
         }
         $session->setParty(null);
+        $session->setPartyChat(false);
+    }
+
+    public function sendColoredMessage(Session $session, string ...$message): void {
+        $this->message("{LIGHT_PURPLE}[Party] {GRAY}" . $session->getUsername() . ": {WHITE}" . $message = implode(" ", $message));
     }
 
     /*
-     * If you set a session instance to $ignoredMember, that session will not receive the party message
+     * If you set a session instance to $ignored_member, that session will not receive the party message
      */
-    public function message(string $message, ?Session $ignoredMember = null): void {
+    public function message(string $message, ?Session $ignored_member = null): void {
         foreach($this->members as $member) {
-            if($ignoredMember !== null and $member->getUsername() === $ignoredMember->getUsername()) continue;
+            if($ignored_member !== null and $member->getUsername() === $ignored_member->getUsername()) continue;
             $member->message($message);
         }
     }
