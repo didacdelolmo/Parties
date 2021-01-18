@@ -121,8 +121,8 @@ class Party {
         $session->setPartyChat(false);
     }
 
-    public function sendColoredMessage(Session $session, string ...$message): void {
-        $this->message("{LIGHT_PURPLE}[Party] {GRAY}" . $session->getUsername() . ": {WHITE}" . $message = implode(" ", $message));
+    public function sendColoredMessage(Session $session, string $message): void {
+        $this->message("{LIGHT_PURPLE}[Party] {GRAY}" . $session->getUsername() . ": {WHITE}$message");
     }
 
     /*
