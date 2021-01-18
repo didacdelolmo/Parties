@@ -15,7 +15,7 @@ class PartyCommand extends SessionCommand {
     public function onCommand(Session $session, array $args) {
         if(isset($args[0])) {
             if($session->hasParty()) {
-                $session->getParty()->sendColoredMessage($session, $args);
+                $session->getParty()->sendColoredMessage($session, implode(" ", $args));
             } else {
                 $session->message("{RED}You must be in a party to talk in the party chat!");
             }
