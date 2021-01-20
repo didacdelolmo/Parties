@@ -22,6 +22,9 @@ class Session {
     /** @var null|Party */
     private $party = null;
 
+    /** @var bool */
+    private $party_chat = false;
+
     /** @var Invitation[] */
     private $invitations = [];
 
@@ -37,8 +40,32 @@ class Session {
         return $this->player;
     }
 
+    public function isOnline(): bool {
+        return SessionFactory::hasSession($this->player);
+    }
+
     public function getParty(): ?Party {
         return $this->party;
+    }
+
+    public function setParty(?Party $party): void {
+        $this->party = $party;
+    }
+
+    public function hasParty(): bool {
+        return $this->party !== null;
+    }
+
+    public function isPartyLeader(): bool {
+        return $this->hasParty() ? $this->party->getLeaderName() === $this->getUsername() : false;
+    }
+
+    public function hasPartyChat(): bool {
+        return $this->party_chat;
+    }
+
+    public function setPartyChat(bool $party_chat): void {
+        $this->party_chat = $party_chat;
     }
 
     /**
@@ -66,22 +93,6 @@ class Session {
             }
         }
         return false;
-    }
-
-    public function hasParty(): bool {
-        return $this->party !== null;
-    }
-
-    public function isPartyLeader(): bool {
-        return $this->hasParty() ? $this->party->getLeaderName() === $this->getUsername() : false;
-    }
-
-    public function isOnline(): bool {
-        return SessionFactory::hasSession($this->player);
-    }
-
-    public function setParty(?Party $party): void {
-        $this->party = $party;
     }
 
     public function addInvitation(Invitation $invitation): void {
