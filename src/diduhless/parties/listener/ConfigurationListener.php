@@ -24,7 +24,7 @@ class ConfigurationListener implements Listener {
         $entity = $event->getEntity();
         $damager = $event->getDamager();
 
-        if(!$entity instanceof Player or !$damager instanceof Player) {
+        if(!$entity instanceof Player or !$damager instanceof Player or !SessionFactory::hasSession($entity)) {
             return;
         }
         $session = SessionFactory::getSession($damager);
@@ -39,7 +39,7 @@ class ConfigurationListener implements Listener {
 
     public function onLevelChange(EntityLevelChangeEvent $event): void {
         $entity = $event->getEntity();
-        if(!$entity instanceof Player) {
+        if(!$entity instanceof Player or !SessionFactory::hasSession($entity)) {
             return;
         }
         $this->checkPartyItem($entity, $event->getTarget());
