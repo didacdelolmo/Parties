@@ -14,7 +14,6 @@ class PartyChatCommand extends SessionCommand {
 
     public function onCommand(Session $session, array $args) {
         $party_chat = $session->hasPartyChat();
-
         if(!$session->hasParty()) {
             $session->message("{RED}You must be in a party to do this!");
             return;
