@@ -12,21 +12,17 @@ use diduhless\parties\party\Invitation;
 use diduhless\parties\party\Party;
 use diduhless\parties\party\PartyItem;
 use diduhless\parties\utils\ColorUtils;
-use pocketmine\Player;
+use pocketmine\player\Player;
 
 class Session {
 
-    /** @var Player */
-    private $player;
+    private Player $player;
 
-    /** @var null|Party */
-    private $party = null;
-
-    /** @var bool */
-    private $party_chat = false;
+    private ?Party $party = null;
+    private bool $party_chat = false;
 
     /** @var Invitation[] */
-    private $invitations = [];
+    private array $invitations = [];
 
     public function __construct(Player $player) {
         $this->player = $player;
@@ -57,7 +53,7 @@ class Session {
     }
 
     public function isPartyLeader(): bool {
-        return $this->hasParty() ? $this->party->getLeaderName() === $this->getUsername() : false;
+        return $this->hasParty() and $this->party->getLeaderName() === $this->getUsername();
     }
 
     public function hasPartyChat(): bool {

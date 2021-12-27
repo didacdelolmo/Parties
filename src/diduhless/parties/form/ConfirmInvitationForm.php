@@ -9,13 +9,12 @@ use diduhless\parties\session\Session;
 use diduhless\parties\utils\StoresSession;
 use EasyUI\element\ModalOption;
 use EasyUI\variant\ModalForm;
-use pocketmine\Player;
+use pocketmine\player\Player;
 
 class ConfirmInvitationForm extends ModalForm {
     use StoresSession;
 
-    /** @var Invitation */
-    private $invitation;
+    private Invitation $invitation;
 
     public function __construct(Session $session, Invitation $invitation) {
         $this->session = $session;

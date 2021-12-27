@@ -6,12 +6,12 @@ declare(strict_types=1);
 namespace diduhless\parties\session;
 
 
-use pocketmine\Player;
+use pocketmine\player\Player;
 
 class SessionFactory {
 
     /** @var Session[] */
-    static private $sessions = [];
+    static private array $sessions = [];
 
     /**
      * @return Session[]

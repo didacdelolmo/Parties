@@ -18,25 +18,24 @@ use pocketmine\plugin\PluginBase;
 
 class Parties extends PluginBase {
 
-    /** @var Parties */
-    static private $instance;
+    static private self $instance;
 
-    public function onLoad() {
+    protected function onLoad(): void {
         self::$instance = $this;
         $this->saveDefaultConfig();
     }
 
-    public function onEnable() {
-       $this->registerEvents(new SessionListener());
-       $this->registerEvents(new PartyChatListener());
-       $this->registerEvents(new PartyEventListener());
-       $this->registerEvents(new ConfigurationListener());
+    protected function onEnable(): void {
+        $this->registerEvents(new SessionListener());
+        $this->registerEvents(new PartyChatListener());
+        $this->registerEvents(new PartyEventListener());
+        $this->registerEvents(new ConfigurationListener());
 
-       $this->registerCommand(new PartyCommand());
-       $this->registerCommand(new PartyChatCommand());
-   }
+        $this->registerCommand(new PartyCommand());
+        $this->registerCommand(new PartyChatCommand());
+    }
 
-   private function registerEvents(Listener $listener): void {
+    private function registerEvents(Listener $listener): void {
        $this->getServer()->getPluginManager()->registerEvents($listener, $this);
    }
 

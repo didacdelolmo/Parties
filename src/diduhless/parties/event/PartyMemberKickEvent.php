@@ -9,8 +9,7 @@ use diduhless\parties\session\Session;
 
 class PartyMemberKickEvent extends PartyEvent {
 
-    /** @var Session */
-    private $member;
+    private Session $member;
 
     public function __construct(Party $party, Session $session, Session $member) {
         $this->member = $member;

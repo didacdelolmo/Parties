@@ -13,14 +13,10 @@ class Invitation {
 
     public const INVITATION_LENGTH = 60;
 
-    /** @var Session */
-    private $sender;
+    private Session $sender;
+    private Session $target;
 
-    /** @var Session */
-    private $target;
-
-    /** @var string */
-    private $partyId;
+    private string $partyId;
 
     public function __construct(Session $sender, Session $target, string $partyId) {
         $this->sender = $sender;

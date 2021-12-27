@@ -12,26 +12,18 @@ use diduhless\parties\utils\ConfigGetter;
 
 class Party {
 
-    /** @var string */
-    private $id;
+    private string $id;
 
-    /** @var Session */
-    private $leader;
+    private Session $leader;
 
     /** @var Session[] */
-    private $members = [];
+    private array $members = [];
 
-    /** @var bool */
-    private $public = false;
+    private bool $public = false;
+    private bool $pvp;
+    private bool $leader_world_teleport;
 
-    /** @var bool */
-    private $pvp;
-
-    /** @var bool */
-    private $leader_world_teleport;
-
-    /** @var int */
-    private $slots;
+    private int $slots;
 
     public function __construct(string $id, Session $leader) {
         $this->id = $id;
@@ -55,7 +47,7 @@ class Party {
     }
 
     public function hasMemberByName(string $username): bool {
-        return SessionFactory::hasSessionByName($username) ? $this->hasMember(SessionFactory::getSessionByName($username)) : false;
+        return SessionFactory::hasSessionByName($username) and $this->hasMember(SessionFactory::getSessionByName($username));
     }
 
     public function getLeader(): Session {

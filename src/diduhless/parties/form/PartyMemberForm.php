@@ -11,13 +11,12 @@ use diduhless\parties\session\Session;
 use diduhless\parties\utils\StoresSession;
 use EasyUI\element\Button;
 use EasyUI\variant\SimpleForm;
-use pocketmine\Player;
+use pocketmine\player\Player;
 
 class PartyMemberForm extends SimpleForm {
     use StoresSession;
 
-    /** @var Session */
-    private $member;
+    private Session $member;
 
     public function __construct(Session $session, Session $member) {
         $this->session = $session;

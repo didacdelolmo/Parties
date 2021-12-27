@@ -9,7 +9,7 @@ use diduhless\parties\session\Session;
 use diduhless\parties\utils\StoresSession;
 use EasyUI\element\Button;
 use EasyUI\variant\SimpleForm;
-use pocketmine\Player;
+use pocketmine\player\Player;
 
 class InvitationsForm extends SimpleForm {
     use StoresSession;

@@ -10,9 +10,9 @@ class ConfigGetter {
 
     /**
      * @param string $key
-     * @return bool|mixed
+     * @return mixed
      */
-    static public function get(string $key) {
+    static public function get(string $key): mixed {
         return Parties::getInstance()->getConfig()->get($key);
     }
 

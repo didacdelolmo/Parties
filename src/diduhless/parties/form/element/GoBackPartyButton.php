@@ -6,7 +6,7 @@ namespace diduhless\parties\form\element;
 
 use diduhless\parties\session\SessionFactory;
 use EasyUI\element\Button;
-use pocketmine\Player;
+use pocketmine\player\Player;
 
 class GoBackPartyButton extends Button {
 

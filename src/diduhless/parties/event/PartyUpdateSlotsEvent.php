@@ -9,8 +9,7 @@ use diduhless\parties\session\Session;
 
 class PartyUpdateSlotsEvent extends PartyEvent {
 
-    /** @var int */
-    private $slots;
+    private int $slots;
 
     public function __construct(Party $party, Session $session, int $slots) {
         $this->slots = $slots;

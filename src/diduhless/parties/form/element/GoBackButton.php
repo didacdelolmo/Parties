@@ -6,7 +6,7 @@ namespace diduhless\parties\form\element;
 
 use EasyUI\element\Button;
 use EasyUI\Form;
-use pocketmine\Player;
+use pocketmine\player\Player;
 
 class GoBackButton extends Button {
 

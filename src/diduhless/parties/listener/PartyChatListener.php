@@ -24,7 +24,7 @@ class PartyChatListener implements Listener {
         if($session->hasPartyChat() and $session->hasParty()) {
             $session->getParty()->sendColoredMessage($session, $event->getMessage());
 
-            $event->setCancelled();
+            $event->cancel();
         }
     }
 

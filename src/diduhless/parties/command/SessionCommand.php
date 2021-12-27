@@ -10,10 +10,11 @@ use diduhless\parties\session\SessionFactory;
 use pocketmine\command\Command;
 use pocketmine\command\CommandSender;
 use pocketmine\command\PluginIdentifiableCommand;
-use pocketmine\Player;
+use pocketmine\player\Player;
 use pocketmine\plugin\Plugin;
+use pocketmine\plugin\PluginOwned;
 
-abstract class SessionCommand extends Command implements PluginIdentifiableCommand {
+abstract class SessionCommand extends Command implements PluginOwned {
 
     public function execute(CommandSender $sender, string $commandLabel, array $args): void {
         if($this->testPermission($sender) and $sender instanceof Player and SessionFactory::hasSession($sender)) {
@@ -23,7 +24,7 @@ abstract class SessionCommand extends Command implements PluginIdentifiableComma
 
     abstract public function onCommand(Session $session, array $args);
 
-    public function getPlugin(): Plugin {
+    public function getOwningPlugin(): Plugin {
         return Parties::getInstance();
     }
 

@@ -14,13 +14,12 @@ use EasyUI\element\Input;
 use EasyUI\element\Option;
 use EasyUI\utils\FormResponse;
 use EasyUI\variant\CustomForm;
-use pocketmine\Player;
+use pocketmine\player\Player;
 
 class PartyInviteForm extends CustomForm {
     use StoresSession;
 
-    /** @var bool */
-    private $is_dropdown = false;
+    private bool $is_dropdown = false;
 
     public function __construct(Session $session) {
         $this->session = $session;

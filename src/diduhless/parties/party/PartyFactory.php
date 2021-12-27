@@ -9,7 +9,7 @@ namespace diduhless\parties\party;
 class PartyFactory {
 
     /** @var Party[] */
-    static private $parties = [];
+    static private array $parties = [];
 
     /**
      * @return Party[]

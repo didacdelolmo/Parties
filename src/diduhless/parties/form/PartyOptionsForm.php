@@ -19,7 +19,7 @@ use EasyUI\element\Slider;
 use EasyUI\element\Toggle;
 use EasyUI\utils\FormResponse;
 use EasyUI\variant\CustomForm;
-use pocketmine\Player;
+use pocketmine\player\Player;
 
 class PartyOptionsForm extends CustomForm {
     use StoresSession;
