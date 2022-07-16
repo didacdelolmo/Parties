@@ -7,8 +7,10 @@ namespace diduhless\parties\listener;
 
 
 use diduhless\parties\event\PartyDisbandEvent;
+use diduhless\parties\event\PartyLeaveEvent;
 use diduhless\parties\party\Party;
 use diduhless\parties\party\PartyFactory;
+use diduhless\parties\session\Session;
 use diduhless\parties\session\SessionFactory;
 use pocketmine\event\Listener;
 use pocketmine\event\player\PlayerLoginEvent;
@@ -35,9 +37,20 @@ class SessionListener implements Listener {
             $session = SessionFactory::getSession($player);
             if($session->isPartyLeader()) {
                 $this->disbandParty($session->getParty());
+            }else {
+                if($session->hasParty()) {
+                    $this->removeFromParty($session->getParty(), $session);
+                }
             }
         }
         SessionFactory::removeSession($player);
+    }
+
+    private function removeFromParty(Party $party, Session $session): void {
+        $event = new PartyLeaveEvent($party, $session);
+        $event->call();
+
+        $session->getParty()->remove($session);
     }
 
     private function disbandParty(Party $party): void {

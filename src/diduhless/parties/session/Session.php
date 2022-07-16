@@ -114,11 +114,15 @@ class Session {
     }
 
     public function givePartyItem(int $index): void {
-        $this->getPlayer()->getInventory()->setItem($index, new PartyItem());
+        if($this->getPlayer()->isOnline()) {
+            $this->getPlayer()->getInventory()->setItem($index, new PartyItem());
+        }
     }
 
     public function message(string $message): void {
-        $this->getPlayer()->sendMessage(ColorUtils::translate($message));
+        if($this->getPlayer()->isOnline()) {
+            $this->getPlayer()->sendMessage(ColorUtils::translate($message));
+        }
     }
 
 }
