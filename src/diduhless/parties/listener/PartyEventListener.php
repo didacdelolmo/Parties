@@ -55,7 +55,7 @@ class PartyEventListener implements Listener {
 
         $targetName = $target->getUsername();
 
-        $session->message("{GREEN}You have invited {WHITE}$targetName {GREEN}to the party! He has got {WHITE}1 minute {GREEN}to accept the invitation.");
+        $session->message("{GREEN}You have invited {WHITE}$targetName {GREEN}to the party! They have {WHITE}1 minute {GREEN}to accept the invitation.");
         $target->message("{GREEN}You have received an invitation to join {WHITE}" . $session->getUsername() . "{GREEN}'s party!");
         $event->getParty()->message("$targetName {GREEN}has been invited to the party!", $session);
     }

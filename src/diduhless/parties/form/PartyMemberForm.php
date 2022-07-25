@@ -31,7 +31,7 @@ class PartyMemberForm extends SimpleForm {
     }
 
     private function addKickButton(): void {
-        $button = new Button("Kick him from the party");
+        $button = new Button("Kick from the party");
         $button->setSubmitListener(function(Player $player) {
             if(!$this->member->isOnline()) return;
             $party = $this->session->getParty();

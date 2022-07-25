@@ -35,7 +35,7 @@ class YourPartyForm extends SimpleForm {
     private function addMembersButton(): void {
         if(!$this->session->hasParty()) return;
 
-        $this->addButton(new Button("Members", null, function(Player $player) {
+        $this->addButton(new Button("Members (" . count($this->session->getParty()->getMembers()) . ")", null, function(Player $player) {
             $player->sendForm(new PartyMembersForm($this->session));
         }));
     }

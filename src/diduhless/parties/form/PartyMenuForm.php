@@ -50,7 +50,7 @@ class PartyMenuForm extends SimpleForm {
     }
 
     public function addInvitationsButton(): void {
-        $this->addButton(new Button("Invitations [" . count($this->session->getInvitations()) . "]", null, function(Player $player) {
+        $this->addButton(new Button("View invitations [" . count($this->session->getInvitations()) . "]", null, function(Player $player) {
             $player->sendForm(new InvitationsForm($this->session));
         }));
     }
